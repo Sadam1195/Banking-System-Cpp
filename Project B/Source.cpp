@@ -1,10 +1,12 @@
 #include <iostream>
-#include <fstream>
-#include <cstdlib> // system()
-#include <string> // to_string()
-#include <ctime> // time()
-#include <stdio.h>
-#include <windows.h>
+#include <fstream>    // ofstream
+#include <cstdlib>    // system()
+#include <string>     // to_string()
+#include <ctime>      // time()
+#include <stdio.h>    
+#include <windows.h>  //  GetStdHandle for Colored Text
+
+#pragma warning(disable : 4996)
 
 using namespace std;
 
@@ -17,35 +19,11 @@ struct userDetail {
 	bool atmBlocked;
 };
 
-class bank
-{
-public:
-	string name;
-	string username;
-	string password;
-	int pin;
-	short int role;
-	bool atmBlocked;
-	char infoFile[10];
-	char dataDir[10];
-	bool loggedIn = false;
-	fstream infoFileWriteStream;
-
+class Graphics {
+	/* http://www.infernodevelopment.com/set-console-text-color */
 	HANDLE hCon;
-	userDetail currentUser;
 	enum Color { DARKBLUE = 1, DARKGREEN, DARKTEAL, DARKRED, DARKPINK, DARKYELLOW, GRAY, DARKGRAY, BLUE, GREEN, TEAL, RED, PINK, YELLOW, WHITE };
 
-	bank()
-	{
-		char infoFile[] = "info.txt";
-		char dataDir[] = "data/";
-		bool loggedIn = false;
-		infoFileWriteStream.open("infoFile.txt");
-
-
-	}
-
-	/* http://www.infernodevelopment.com/set-console-text-color */
 	void SetColor(Color c) {
 		if (hCon == NULL) {
 			hCon = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -71,10 +49,34 @@ public:
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);
 		return consoleinfo.dwCursorPosition.Y;
 	}
+};
 
-	bank getRoleValue(string username) {
-		fstream infoFileReadStream("infoFile.txt");
-		bank user;
+/*
+	Use camelCase in naming functions
+*/
+class Bank
+{
+public:
+	userDetail user;
+	char infoFile[20];
+	char dataDir[20];
+	bool loggedIn = false;
+	ofstream infoFileWriteStream;
+
+	userDetail currentUser;
+
+	Bank()
+	{
+		srand(time(NULL));
+		strcpy_s(infoFile,"infoFile.txt");
+		strcpy_s(dataDir, "data/");
+		bool loggedIn = false;
+		infoFileWriteStream.open(infoFile, ios::app);
+	}
+
+	userDetail getRoleValue(string username) {
+		fstream infoFileReadStream(infoFile);
+		userDetail user;
 		int position = 0;
 		while (infoFileReadStream
 			>> user.username
@@ -92,9 +94,9 @@ public:
 		return user;
 	}
 
-	bool putCurrentUserValue(string username, bank data) {
+	bool putCurrentUserValue(string username, userDetail data) {
 
-		fstream infoFileReadStream("infoFile.txt");
+		fstream infoFileReadStream(infoFile);
 		userDetail user;
 		int position = 0;
 		while (infoFileReadStream
@@ -121,25 +123,25 @@ public:
 	}
 
 	void changePIN(string username, int pin){
-		bank data = getRoleValue(username);
+		userDetail data = getRoleValue(username);
 		data.pin = pin;
 		putCurrentUserValue(username, data);
 	}
 
 	void changePassword(string username, string password){
-		bank data = getRoleValue(username);
+		userDetail data = getRoleValue(username);
 		data.password = password;
 		putCurrentUserValue(username, data);
 	}
 
 	void unlockATM(string username, bool unlock){
-		bank data = getRoleValue(username);
+		userDetail data = getRoleValue(username);
 		data.atmBlocked = unlock;
 		putCurrentUserValue(username, data);
 	}
 
 	void deleteUser(string username){
-		bank data = getRoleValue(username);
+		userDetail data = getRoleValue(username);
 		data.name = "DEL_N";
 		data.username = "DEL_UN";
 		data.password = "DEL_P";
@@ -152,14 +154,7 @@ public:
 		remove(fileLoc.c_str());
 	}
 
-	/*////////////////////////////////////////////*/
-
-	void init()
-	{
-		srand(time(NULL));
-	}
-
-	int randomPIN()
+	static int randomPIN()
 	{
 		int min = 1111;
 		int max = 9999;
@@ -226,8 +221,8 @@ public:
 	bool usernameAlreadyExist(string username) {
 		string line;
 		bool flag = false;
-		bank user;
-		ifstream infoFileReadStream("infoFile.exe");
+		userDetail user;
+		ifstream infoFileReadStream(infoFile);
 		while (infoFileReadStream
 			>> user.username
 			>> user.password
@@ -261,19 +256,19 @@ public:
 	bool login(string username, string password, short int role) {
 		string line;
 		bool flag = false;
-		bank user;
-		ifstream infoFileReadStream("infoFile.txt");
+		userDetail userData;
+		ifstream infoFileReadStream(infoFile);
 		while (infoFileReadStream
-			>> user.username
-			>> user.password
-			>> user.pin
-			>> user.role
-			>> user.atmBlocked
+			>> userData.username
+			>> userData.password
+			>> userData.pin
+			>> userData.role
+			>> userData.atmBlocked
 			)
 		{
-			if (user.username == username) {
+			if (userData.username == username && userData.password == password) {
 				flag = true;
-				currentUser = user; // Login user
+				currentUser = userData; // Login user
 				currentUser.name = replaceWith(getValueByKey(username, "NAME"), '_', ' ');
 				break;
 			}
@@ -282,7 +277,7 @@ public:
 		return flag;
 	}
 
-	int addUser(bank user) {
+	int addUser(userDetail user) {
 		// Checking whether person with same username exist or not
 		// return false and cancel all operation
 		if (usernameAlreadyExist(user.username))
@@ -339,10 +334,10 @@ public:
 		string value = getValueByKey(currentUser.username, key);
 		return replaceWith(value, '_', ' ');
 	}
-	~bank()
+
+	~Bank()
 	{
 		infoFileWriteStream.close();
-
 	}
 
 };
@@ -352,33 +347,47 @@ int main()
 
 
 	// Registration
-	bank user, currentUser;
-	user.init();
+	Bank branch;
+	userDetail user;
+
 	user.name = "Syed Owais Ali Chishti";
 	user.username = "owais";
 	user.password = "pass";
-	user.pin = user.randomPIN();
+	user.pin = Bank::randomPIN();
 	user.role = 1;
 	user.atmBlocked = 0;
-	//if(addUser(user) == true)// if return false mean user already exist with that username
-	//{
-	//	cout << "User Added";
-	//}
-	//else {
-	//	cout << "Unable to add user.";
-	//}
-	// Login    
-	user.login("owais", "pass", 1);
-	//logout();
-	cout << user.isLogged();
-	//cout << currentUser.name;
+	
+	/*
+	if(branch.addUser(user) == true)// if return false mean user already exist with that username
+	{
+		cout << "User Added";
+	}
+	else {
+		cout << "Unable to add user.";
+	}
+	*/
 
-	cout << user.creationData();
+	/*
+	// Login    
+	if (branch.login("owais", "pass", 1)) {
+		cout << "Logged in";
+	}
+	else {
+		cout << "Sorry!!! unable to log in.";
+	}
+	*/
+
+
+	//logout();
+	//cout << branch.isLogged();
+	//cout << branch.user.name;
+
+	//cout << branch.creationData();
 
 	//string username = "owais";
-	//addBalance(username, -500);
-	//cout << getBalance(username);
-	//deleteUser(username);
+	//branch.addBalance(username, -500);
+	//cout << branch.getBalance(username);
+	//branch.deleteUser(username);
 
 	system("pause");
 	return 0;

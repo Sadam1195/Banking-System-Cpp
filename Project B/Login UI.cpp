@@ -93,7 +93,7 @@ void menu () {
 
 }
 
-int main() {
+int main2() {
 	loginUI ();
 	if (logged == true) {
 		cls();

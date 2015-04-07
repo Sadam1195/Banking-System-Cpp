@@ -3,7 +3,7 @@
 #include <iomanip>
 using namespace std;
 
-int main () {
+int main1 () {
     cout << endl << endl << endl;
     cout << setw(55) << " _________________________ " << endl;
     cout << setw(55) << "/                         \\" << endl;
