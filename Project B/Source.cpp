@@ -342,7 +342,7 @@ public:
 
 };
 
-int main()
+int main2()
 {
 
 

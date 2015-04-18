@@ -93,9 +93,9 @@ void menu () {
 
 }
 
-int main2() {
+int main() {
 	loginUI ();
-	if (logged == true) {
+	if (true) {
 		cls();
 		menu();
 	}
