@@ -5,41 +5,9 @@
 #include <conio.h>
 #include <iomanip>
 #include <windows.h>
+#include "Graphics.cpp"
+
 using namespace std;
-
-HANDLE hCon;
-enum Color { DARKBLUE = 1, DARKGREEN, DARKTEAL, DARKRED, DARKPINK, DARKYELLOW, GRAY, DARKGRAY, BLUE, GREEN, TEAL, RED, PINK, YELLOW, WHITE };
-
-void SetColor(Color c) {
-	if (hCon == NULL) {
-		hCon = GetStdHandle(STD_OUTPUT_HANDLE);
-	}
-	SetConsoleTextAttribute(hCon, c);
-
-	//SetColor(YELLOW);
-	//	cout << "X\b";
-}
-
-
-void goToXY(int x, int y) {
-	COORD coord = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-int whereX()
-{
-	CONSOLE_SCREEN_BUFFER_INFO consoleinfo;
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);
-	return consoleinfo.dwCursorPosition.X;
-}
-
-int whereY()
-{
-	CONSOLE_SCREEN_BUFFER_INFO consoleinfo;
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);
-	return consoleinfo.dwCursorPosition.Y;
-}
-
 
 string getUsername() {
 	string username;
@@ -56,7 +24,7 @@ string getUsername() {
 	cout << setw(55) << "|                    ---- |" << endl;
 	cout << setw(55) << "\\_________________________/" << endl;
 
-	goToXY(37, 8);
+	Graphics::goToXY(37, 8);
 	cin >> username;
 	return username;
 }
@@ -75,7 +43,7 @@ string getPIN() {
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "\\_________________________/" << endl;
 
-	goToXY(40, 8);
+	Graphics::goToXY(40, 8);
 	cin >> PIN;
 	return PIN;
 }
@@ -98,23 +66,23 @@ void Choice()
 		<< "\t\t\t-------------------";
 	int money[] = { 1000, 2000, 3000, 5000, -1 };
 	int indicator = 0;
-	goToXY(41, 4);
+	Graphics::goToXY(41, 4);
 	getchar();
 	while (true)
 	{
 		int ch = _getch();
 		//cout << (int)ch;
-		x = whereX();
-		y = whereY();
+		x = Graphics::whereX();
+		y = Graphics::whereY();
 		if (ch == 80 && indicator < 4) //DOWN
 		{
 			indicator++;
-			goToXY(x, y + 3);
+			Graphics::goToXY(x, y + 3);
 		}
 		if (ch == 72 && indicator != 0) //UP
 		{
 			indicator--;
-			goToXY(x, y - 3);
+			Graphics::goToXY(x, y - 3);
 		}
 		if (ch == 13)
 		{
@@ -132,15 +100,15 @@ void Choice()
 	cout << setw(55) << "|  PROJECT B              |" << endl;
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "|                         |" << endl;
-	SetColor(BLUE);
+	Graphics::SetColor(Graphics::BLUE);
 	cout << setw(55) << "|      Transaction        |" << endl;
-	SetColor(WHITE);
+	Graphics::SetColor(Graphics::WHITE);
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "\\________________________/" << endl;
 
-	goToXY(46, 5);
+	Graphics::goToXY(46, 5);
 	cout << ".";
 	Sleep(1000);
 	cout << ".";
@@ -149,9 +117,9 @@ void Choice()
 	Sleep(1000);
 	cout << ".";
 
-	goToXY(35, 5);
+	Graphics::goToXY(35, 5);
 	cout << "               ";
-	goToXY(30, 5);
+	Graphics::goToXY(30, 5);
 	cout << "TRANSACTION COMPLETED!!!";
 
 	_getch();
@@ -164,9 +132,9 @@ void accountBlocked() {
 	cout << setw(55) << "|  PROJECT B              |" << endl;
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "|                         |" << endl;
-	SetColor(RED);
+	Graphics::SetColor(Graphics::RED);
 	cout << setw(55) << "| ~~~ ACCOUNT BLOCKED ~~~ |" << endl;
-	SetColor(WHITE);
+	Graphics::SetColor(Graphics::WHITE);
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "|                         |" << endl;

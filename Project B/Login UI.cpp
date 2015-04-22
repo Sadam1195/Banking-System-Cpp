@@ -2,19 +2,11 @@
 #include <windows.h>
 #include <conio.h>
 #include <string>
+#include "Graphics.cpp"
+
 using namespace std;
 
 bool logged = false;
-
-void cls() {
-	system("cls");
-}
-
-void goToXY( int x, int y )
-{
-	COORD coord = {x,y};
-	SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),coord);
-}
 
 string userInput (int type) {
 	char ch;

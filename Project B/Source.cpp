@@ -4,6 +4,8 @@
 #include <string>     // to_string()
 #include <ctime>      // time()
 #include <stdio.h>    
+
+#include "Graphics.cpp"
 #include <windows.h>  //  GetStdHandle for Colored Text
 
 #pragma warning(disable : 4996)
@@ -19,37 +21,6 @@ struct userDetail {
 	bool atmBlocked;
 };
 
-class Graphics {
-	/* http://www.infernodevelopment.com/set-console-text-color */
-	HANDLE hCon;
-	enum Color { DARKBLUE = 1, DARKGREEN, DARKTEAL, DARKRED, DARKPINK, DARKYELLOW, GRAY, DARKGRAY, BLUE, GREEN, TEAL, RED, PINK, YELLOW, WHITE };
-
-	void SetColor(Color c) {
-		if (hCon == NULL) {
-			hCon = GetStdHandle(STD_OUTPUT_HANDLE);
-		}
-		SetConsoleTextAttribute(hCon, c);
-
-		//SetColor(YELLOW);
-		//	cout << "X\b";
-	}
-
-	void goToXY(short int x, short int y) {
-		COORD coord = { x, y };
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	}
-	int whereX() {
-		CONSOLE_SCREEN_BUFFER_INFO consoleinfo;
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);
-		return consoleinfo.dwCursorPosition.X;
-	}
-
-	int whereY() {
-		CONSOLE_SCREEN_BUFFER_INFO consoleinfo;
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);
-		return consoleinfo.dwCursorPosition.Y;
-	}
-};
 
 /*
 	Use camelCase in naming functions
