@@ -3,15 +3,10 @@
 class Graphics {
 public:
 	/* http://www.infernodevelopment.com/set-console-text-color */
-	HANDLE hCon;
 	enum Color { DARKBLUE = 1, DARKGREEN, DARKTEAL, DARKRED, DARKPINK, DARKYELLOW, GRAY, DARKGRAY, BLUE, GREEN, TEAL, RED, PINK, YELLOW, WHITE };
 
 	static void SetColor(Color c) {
-		if (hCon == NULL) {
-			hCon = GetStdHandle(STD_OUTPUT_HANDLE);
-		}
-		SetConsoleTextAttribute(hCon, c);
-
+		SetConsoleTextAttribute(GetStdHandle(STD_INPUT_HANDLE), c);
 		//SetColor(YELLOW);
 		//	cout << "X\b";
 	}

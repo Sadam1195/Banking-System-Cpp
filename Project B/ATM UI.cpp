@@ -47,27 +47,48 @@ string getPIN() {
 	cin >> PIN;
 	return PIN;
 }
+
+
+int customAmount() {
+	int amount;
+	cout << endl << endl << endl;
+	cout << setw(55) << " _________________________ " << endl;
+	cout << setw(55) << "/                         \\" << endl;
+	cout << setw(55) << "|  PROJECT B              |" << endl;
+	cout << setw(55) << "|                         |" << endl;
+	cout << setw(55) << "|   CUSTOM                |" << endl;
+	cout << setw(55) << "|   AMOUNT:               |" << endl;
+	cout << setw(55) << "|                         |" << endl;
+	cout << setw(55) << "|                         |" << endl;
+	cout << setw(55) << "|                         |" << endl;
+	cout << setw(55) << "\\_________________________/" << endl;
+
+	Graphics::goToXY(40, 8);
+	cin >> amount;
+	return amount;
+}
+
+
 void Choice()
 {
-	int x = 19;
-	int y = 2;
-	cout << "\t\t\t\t\t\tWelcome Owais Chisti" << endl;
-	cout << "\t\t\tPlease,Enter the Amount" << endl;
-	cout << "\t\t\t-------------------" << "\n\n"
-		<< "\t\t\t| 1000 Rs Only     |" << "\n"
-		<< "\t\t\t-------------------" << "\n\n"
-		<< "\t\t\t| 2000 Rs Only     |" << "\n"
-		<< "\t\t\t-------------------" << "\n\n"
-		<< "\t\t\t| 3000 Rs Only     |" << "\n"
-		<< "\t\t\t-------------------" << "\n\n"
-		<< "\t\t\t| 5000 Rs Only     |" << "\n"
-		<< "\t\t\t-------------------" << "\n\n"
-		<< "\t\t\t| Custom  Only     |" << "\n"
-		<< "\t\t\t-------------------";
+	int x, y;
+
+	cout << endl << endl << endl;
+	cout << "\t\t\t _________________________ " << endl
+		<< "\t\t\t/                         \\" << endl
+		<< "\t\t\t| Select Amount           |" << endl
+		<< "\t\t\t|                         |" << endl
+		<< "\t\t\t|    1000 Rs Only         |" << endl
+		<< "\t\t\t|    2000 Rs Only         |" << endl
+		<< "\t\t\t|    3000 Rs Only         |" << endl
+		<< "\t\t\t|    5000 Rs Only         |" << endl
+		<< "\t\t\t|    Custom  Only         |" << endl
+		<< "\t\t\t\\_________________________/ " << endl;
 	int money[] = { 1000, 2000, 3000, 5000, -1 };
 	int indicator = 0;
-	Graphics::goToXY(41, 4);
-	getchar();
+	Graphics::goToXY(45, 7);
+	cout << "X\b";
+
 	while (true)
 	{
 		int ch = _getch();
@@ -76,13 +97,17 @@ void Choice()
 		y = Graphics::whereY();
 		if (ch == 80 && indicator < 4) //DOWN
 		{
+			cout << " ";
 			indicator++;
-			Graphics::goToXY(x, y + 3);
+			Graphics::goToXY(x, y + 1);
+			cout << "X\b";
 		}
 		if (ch == 72 && indicator != 0) //UP
 		{
+			cout << " ";
 			indicator--;
-			Graphics::goToXY(x, y - 3);
+			Graphics::goToXY(x, y - 1);
+			cout << "X\b";
 		}
 		if (ch == 13)
 		{
@@ -93,8 +118,12 @@ void Choice()
 			break;
 		}
 	}
+}
 
-	system("cls");
+
+bool transaction() {
+	Graphics::cls();
+	cout << endl << endl << endl;
 	cout << setw(55) << " _________________________ " << endl;
 	cout << setw(55) << "/                         \\" << endl;
 	cout << setw(55) << "|  PROJECT B              |" << endl;
@@ -108,7 +137,7 @@ void Choice()
 	cout << setw(55) << "|                         |" << endl;
 	cout << setw(55) << "\\________________________/" << endl;
 
-	Graphics::goToXY(46, 5);
+	Graphics::goToXY(46, 8);
 	cout << ".";
 	Sleep(1000);
 	cout << ".";
@@ -117,12 +146,18 @@ void Choice()
 	Sleep(1000);
 	cout << ".";
 
-	Graphics::goToXY(35, 5);
+	Graphics::goToXY(35, 8);
 	cout << "               ";
-	Graphics::goToXY(30, 5);
+	Graphics::goToXY(30, 8);
 	cout << "TRANSACTION COMPLETED!!!";
+	
+	Graphics::goToXY(31, 11);
+	char choice;
+	cout << "Want another (Y/N)? ";
+	choice = getchar();
+	Sleep(1000);
+	return (choice == 'y' || choice == 'Y') ? true : false;
 
-	_getch();
 }
 
 void accountBlocked() {
@@ -144,12 +179,15 @@ void accountBlocked() {
 
 
 int main() {
-	string username = getUsername();
-	system("cls");
-	string PIN = getPIN();
-	system("cls");
 	Choice();
-	system("cls");
+	transaction();
+	_getch();
+	string username = getUsername();
+	Graphics::cls();
+	string PIN = getPIN();
+	Graphics::cls();
+	Choice();
+	Graphics::cls();
 	//accountBlocked();
 	//cout << username;
 	system("pause");

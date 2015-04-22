@@ -38,29 +38,29 @@ void loginUI () {
 	string username, password;
 	int role;
 
-	goToXY(20,5);
+	Graphics::goToXY(20, 5);
 	cout << "------------------------------------";
-	goToXY(20,7);
+	Graphics::goToXY(20, 7);
 	cout << "          *** LOGIN ***             ";
 
 
-	goToXY(25,10);
+	Graphics::goToXY(25, 10);
 	cout << "USERNAME: ";
-	goToXY(25,11);
+	Graphics::goToXY(25, 11);
 	cout << "PASSWORD: ";
-	goToXY(25,12);
+	Graphics::goToXY(25, 12);
 	cout << "ROLE:";
 
-	goToXY(20,16);
+	Graphics::goToXY(20, 16);
 	cout << "------------------------------------";
 
-	goToXY (35,10);
+	Graphics::goToXY(35, 10);
 	username = userInput(1);
-	goToXY (35,11);
+	Graphics::goToXY(35, 11);
 	password = userInput(2);
-	goToXY (31,12);
+	Graphics::goToXY(31, 12);
 	role = atoi(userInput(3).c_str());
-	goToXY (35,15);
+	Graphics::goToXY(35, 15);
 	
 	//cout << username << " " << password << " " << role;
 	logged = true;
@@ -85,10 +85,10 @@ void menu () {
 
 }
 
-int main() {
+int main3() {
 	loginUI ();
 	if (true) {
-		cls();
+		Graphics::cls();
 		menu();
 	}
 	return 0;

@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ATM UI.cpp" />
+    <ClCompile Include="Bank.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Login UI.cpp" />
     <ClCompile Include="Source.cpp" />
