@@ -78,7 +78,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ATM UI.cpp" />
+    <ClCompile Include="ATM_UI.cpp" />
+    <ClCompile Include="Bank.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Login_UI.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
