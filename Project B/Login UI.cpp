@@ -85,7 +85,7 @@ void menu () {
 
 }
 
-int main3() {
+int main() {
 	loginUI ();
 	if (true) {
 		Graphics::cls();

@@ -176,16 +176,15 @@ void accountBlocked() {
 	cout << setw(55) << "\\_________________________/" << endl;
 }
 
-
-
-int main() {
-	Choice();
-	transaction();
-	_getch();
+int main3() {
 	string username = getUsername();
 	Graphics::cls();
 	string PIN = getPIN();
 	Graphics::cls();
+	Choice();
+	transaction();
+	_getch();
+
 	Choice();
 	Graphics::cls();
 	//accountBlocked();
