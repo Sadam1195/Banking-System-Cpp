@@ -26,6 +26,7 @@ public:
 		COORD coord = { x, y };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	}
+	
 	static int whereX() {
 		CONSOLE_SCREEN_BUFFER_INFO consoleinfo;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);

@@ -220,6 +220,8 @@ private:
 
 public:
 	void run() {
+		Graphics::cls();
+
 		Bank branch;
 		string username;
 		while (true) {

@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="ATM_UI.cpp" />
     <ClCompile Include="Bank.cpp" />
+    <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Login_UI.cpp" />
     <ClCompile Include="Source.cpp" />

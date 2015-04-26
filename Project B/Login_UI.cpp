@@ -377,12 +377,13 @@ private:
 
 public:
 	void run() {
-		menu();
-		//if (login()) {
-			//Graphics::cls();
-			//menu();
-			//Information();
-			//Transfer_Money();
-		//}
+		Graphics::cls();
+
+		if (login()) {
+			Graphics::cls();
+			menu();
+			Information();
+			Transfer_Money();
+		}
 	}
 };
