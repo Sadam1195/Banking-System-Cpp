@@ -11,12 +11,43 @@ using namespace std;
 int main()
 {
 
-//	atmUI atm;
+	//atmUI atm;
 	//atm.run();
 
 	loginUI online;
 	online.run();
 
+	/*
+	Bank branch;
+	userDetail user;
+
+	user.name = "Syed Owais Ali Chishti";
+	user.username = "owais";
+	user.password = "pass";
+	user.pin = Bank::randomPIN();
+	user.role = 1;
+	user.atmBlocked = 0;
+
+
+	if (branch.addUser(user) == true)// if return false mean user already exist with that username
+	{
+		cout << "User Added";
+	}
+	
+	user.name = "Zerk Shaban";
+	user.username = "zerk";
+	user.password = "pass";
+	user.pin = Bank::randomPIN();
+	user.role = 1;
+	user.atmBlocked = 0;
+
+
+	if (branch.addUser(user) == true)// if return false mean user already exist with that username
+	{
+		cout << "User Added";
+	}
+	*/
+	
 	//Registration
 	
 	/*

@@ -185,7 +185,6 @@ public:
 
 	bool usernameAlreadyExist(string username) {
 		string line;
-		bool flag = false;
 		userDetail user;
 		ifstream infoFileReadStream(infoFile);
 		while (infoFileReadStream
@@ -193,15 +192,15 @@ public:
 			>> user.password
 			>> user.pin
 			>> user.role
+			>> user.atmBlocked
 			)
 		{
 			if (user.username == username) {
-				flag = true;
-				break;
+				return true;
 			}
 		}
 		infoFileReadStream.close();
-		return flag;
+		return false;
 	}
 
 	string replaceWith(string str, char pin, char replace) {

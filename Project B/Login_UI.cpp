@@ -108,6 +108,7 @@ private:
 	}
 
 	void getFunction(int funcID) {
+		
 		clearShowScreen();
 		switch (funcID) {
 		case 0:
@@ -126,25 +127,27 @@ private:
 			Log_Out();
 			break;
 		}
-
 	}
 
-	string nonBlockingCIN() {
+	string nonBlockingCIN(bool show = true) {
 		string text;
 		char ch;
-		while (true)
+		Graphics::goToXY(Graphics::whereX(),Graphics::whereY());
+		while (ch = _getch())
 		{
-			ch = _getch();
-			switch (ch) {
-			case 80: // UP
-			case 72: // DOWN
+			if (ch == 80 || ch == 72)
+			{
 				return "";
-				break;
-			case 13:
+			}
+			else if (ch == 13) {
 				return text;
-				break;
-			default:
-				text.push_back(ch);
+			}
+			else {
+				if (ch != -32) {
+					if (show) cout << (char)ch;
+					else cout << "*";
+					text.push_back(ch);
+				}
 			}
 		}
 	}
@@ -176,25 +179,26 @@ private:
 		getFunction(count);
 		
 		char ch;
-		while (ch = getch()) {
+		ch = getch();
+		while (true) {
 			if (ch == 80 && count < 4) { // DOWN
 				Graphics::goToXY(18, y);
 				cout << "|";
 				Graphics::goToXY(18, y += 3);
 				Graphics::coutColored(GREEN, "X\b");
-				getFunction(count);
 				count++;
+				getFunction(count);
 			}
 			if (ch == 72 && count != 0) { // UP
 				Graphics::goToXY(18, y);
 				cout << "|";
 				Graphics::goToXY(18, y -= 3);
 				Graphics::coutColored(GREEN, "X\b");
-				getFunction(count);
 				count--;
+				getFunction(count);
 			}
+			ch = getch();
 		}
-
 		_getch();
 	}
 
@@ -254,26 +258,29 @@ private:
 		cout << "Sender Name: ";
 		y++;
 		Graphics::goToXY(x, y);
-		cout << "Reciver Name: ";
+		cout << "Reciever Name: ";
 		y++;
 		Graphics::goToXY(x, y);
 		cout << "Amount: ";
 		
 		while (true)
 		{
-			Graphics::goToXY(42, 8);
+			Graphics::goToXY(43, 8);
 			
 			Sender_Name = nonBlockingCIN();
 			if (Sender_Name == "") return;
-			//cin >> Sender_Name;
 			if (LoggedUser.usernameAlreadyExist(Sender_Name))
 			{
 				break;
 			}
+			else {
+				Graphics::goToXY(43, 8);
+				cout << "         ";
+			}
 		}
 		while (true)
 		{
-			Graphics::goToXY(42, 9);
+			Graphics::goToXY(45, 9);
 			Reciver_Name = nonBlockingCIN();
 			if (Reciver_Name == "") return;
 
@@ -281,19 +288,21 @@ private:
 			{
 				break;
 			}
+			else {
+				Graphics::goToXY(44, 9);
+				cout << "         ";
+			}
 		}
 
-		while (true)
-		{
-			string dummy;
-			Graphics::goToXY(42, 9);
-			dummy = nonBlockingCIN();
-			if (dummy == "") return;
-			Amount_Sended = atoi(dummy.c_str());
-		}
+		string dummy;
+		Graphics::goToXY(38, 10);
+		dummy = nonBlockingCIN();
+		if (dummy == "") return;
+		Amount_Sended = atoi(dummy.c_str());
 
 		float Sender_Bal = LoggedUser.getBalance(Sender_Name);
 		
+		Graphics::goToXY(x, y += 4);
 		if (Amount_Sended <= Sender_Bal)
 		{
 			LoggedUser.addBalance(Sender_Name, -1 * Amount_Sended);
@@ -304,51 +313,63 @@ private:
 		{
 			 cout << "Money Over-flow";
  		}
-
-	Graphics::goToXY(38, 8);
-	cin >> Sender_Name;
-
 	}
 
 	void Change_Password()
 	{
 		string new_pass;
-		cout << "Enter new password:\n";
-		cin >> new_pass;
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);
+
+		cout << "Enter new password: ";
+		new_pass = nonBlockingCIN(true);
+		if (new_pass == "") return;
 		LoggedUser.changePassword(LoggedUser.currentUser.username,new_pass);
 
+		Graphics::goToXY(x, y += 4);
+		cout << "Password Changed!!!";
 	}
 
 	void Change_PIN()
 	{
-		int new_pin;
-		cout << "Enter new pin:\n";
-		cin >> new_pin;
+		string new_pin;
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);
+		cout << "Enter new pin: ";
+		new_pin = nonBlockingCIN(true);
+		if (new_pin == "") return;
 
-		LoggedUser.changePIN( LoggedUser.currentUser.username,new_pin);
-
+		LoggedUser.changePIN( LoggedUser.currentUser.username,atoi(new_pin.c_str()));
+		Graphics::goToXY(x, y += 4);
+		cout << "PIN Changed!!!";
 	}
 	 
 	void Log_Out()
 	{
-		
-		cout << "Do you want to Log Out:\n";
-		while (1)
-		{
-			if (_getch() == 13)
-			{
-				LoggedUser.logout();
-				
-				return;
-			}
+		string dummy;
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);
+		cout << "Do you want to Log Out: ";
+		dummy = nonBlockingCIN(false);
+		if (dummy == "") return;
 
+		if ((int)dummy[dummy.size() - 1] == 13)
+		{
+			LoggedUser.logout();
+			return;
 		}
 		
 	}
 
 	void unlockATM()
 	{
-		cout << "Do you want to Log Out:\n";
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);
+		cout << "Do you want to Log Out: ";
 		while (true)
 		{
 			if (_getch() == 13)
