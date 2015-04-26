@@ -94,6 +94,61 @@ private:
 		}
 	}
 
+	void clearShowScreen() {
+		string empty;
+		for (int i = 0; i < (80 - 20); i++) {
+			empty += " ";
+		}
+
+		for (int i = 0; i < 20; i++) {
+			Graphics::goToXY(20, i);
+			cout << empty;
+
+		}
+	}
+
+	void getFunction(int funcID) {
+		clearShowScreen();
+		switch (funcID) {
+		case 0:
+			Information();
+			break;
+		case 1: 
+			Transfer_Money();
+			break;
+		case 2: 
+			Change_Password();
+			break;
+		case 3: 
+			Change_PIN();
+			break;
+		case 4: 
+			Log_Out();
+			break;
+		}
+
+	}
+
+	string nonBlockingCIN() {
+		string text;
+		char ch;
+		while (true)
+		{
+			ch = _getch();
+			switch (ch) {
+			case 80: // UP
+			case 72: // DOWN
+				return "";
+				break;
+			case 13:
+				return text;
+				break;
+			default:
+				text.push_back(ch);
+			}
+		}
+	}
+
 	void menu() {
 		cout << "-------------------" << "\n\n"
 			<< " Hello,           |" << "\n"
@@ -111,9 +166,38 @@ private:
 		
 		Graphics::goToXY(7,2);
 		cout << LoggedUser.currentUser.username;
-		Information();
-		//Transfer_Money();
+
+		int count = 0;
+
+		int y = 5;
+		Graphics::goToXY(18, y);
+
+		Graphics::coutColored(GREEN,"X\b");
+		getFunction(count);
+		
+		char ch;
+		while (ch = getch()) {
+			if (ch == 80 && count < 4) { // DOWN
+				Graphics::goToXY(18, y);
+				cout << "|";
+				Graphics::goToXY(18, y += 3);
+				Graphics::coutColored(GREEN, "X\b");
+				getFunction(count);
+				count++;
+			}
+			if (ch == 72 && count != 0) { // UP
+				Graphics::goToXY(18, y);
+				cout << "|";
+				Graphics::goToXY(18, y -= 3);
+				Graphics::coutColored(GREEN, "X\b");
+				getFunction(count);
+				count--;
+			}
+		}
+
+		_getch();
 	}
+
 	void Information()
 	{
 		userDetail user;
@@ -135,33 +219,25 @@ private:
 		cout << LoggedUser.getBalance(username) ;
 
 		y++;
+		Graphics::goToXY(x, y);
+		cout << "Status: ";
 		if (LoggedUser.currentUser.role == 1)
 		{
-			Graphics::goToXY(x, y);
-			cout << "Status:";
-			Graphics::goToXY(39, 11);
-			Graphics::SetColor(Graphics::RED);
-			cout << "User";
-			Graphics::SetColor(Graphics::WHITE);
+			Graphics::goToXY(Graphics::whereX() , 11);
+			Graphics::coutColored(PINK, "User");
 
 		}
 		else if (LoggedUser.user.role == 2)
 		{
-			Graphics::goToXY(x, y);
-			cout << "Status:";
-			Graphics::goToXY(39, 12);
-			Graphics::SetColor(Graphics::YELLOW);
-			cout << "Accountant";
-			Graphics::SetColor(Graphics::WHITE);
+			Graphics::goToXY(Graphics::whereX(), 12);
+			Graphics::coutColored(YELLOW, "Accountant");
 		}
 		else if (LoggedUser.user.role == 3)
 		{
-			Graphics::goToXY(x, y);
-			cout << "Status:";
-			Graphics::goToXY(39, 13);
-			Graphics::SetColor(Graphics::BLUE);
-			cout << "Manager";
-			Graphics::SetColor(Graphics::WHITE);
+
+			Graphics::goToXY(Graphics::whereX(), 13);
+			Graphics::coutColored(DARKBLUE, "Manager");
+			
 		}
 		_getch();
 	}
@@ -186,7 +262,10 @@ private:
 		while (true)
 		{
 			Graphics::goToXY(42, 8);
-				cin >> Sender_Name;
+			
+			Sender_Name = nonBlockingCIN();
+			if (Sender_Name == "") return;
+			//cin >> Sender_Name;
 			if (LoggedUser.usernameAlreadyExist(Sender_Name))
 			{
 				break;
@@ -195,11 +274,22 @@ private:
 		while (true)
 		{
 			Graphics::goToXY(42, 9);
-			cin >> Reciver_Name;
+			Reciver_Name = nonBlockingCIN();
+			if (Reciver_Name == "") return;
+
 			if (LoggedUser.usernameAlreadyExist(Reciver_Name))
 			{
 				break;
 			}
+		}
+
+		while (true)
+		{
+			string dummy;
+			Graphics::goToXY(42, 9);
+			dummy = nonBlockingCIN();
+			if (dummy == "") return;
+			Amount_Sended = atoi(dummy.c_str());
 		}
 
 		float Sender_Bal = LoggedUser.getBalance(Sender_Name);
@@ -274,11 +364,12 @@ private:
 
 public:
 	void run() {
-		if (login()) {
-			Graphics::cls();
-			menu();
-			Information();
-			Transfer_Money();
-		}
+		menu();
+		//if (login()) {
+			//Graphics::cls();
+			//menu();
+			//Information();
+			//Transfer_Money();
+		//}
 	}
 };

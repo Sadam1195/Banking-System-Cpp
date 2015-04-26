@@ -161,9 +161,9 @@ private:
 		cout << setw(55) << "|  PROJECT B              |" << endl;
 		cout << setw(55) << "|                         |" << endl;
 		cout << setw(55) << "|                         |" << endl;
-		Graphics::SetColor(Graphics::BLUE);
+		Graphics::SetColor(BLUE);
 		cout << setw(55) << "|      Transaction        |" << endl;
-		Graphics::SetColor(Graphics::WHITE);
+		Graphics::SetColor(WHITE);
 		cout << setw(55) << "|                         |" << endl;
 		cout << setw(55) << "|                         |" << endl;
 		cout << setw(55) << "|                         |" << endl;
@@ -209,9 +209,9 @@ private:
 		cout << setw(55) << "|  PROJECT B              |" << endl;
 		cout << setw(55) << "|                         |" << endl;
 		cout << setw(55) << "|                         |" << endl;
-		Graphics::SetColor(Graphics::RED);
+		Graphics::SetColor(RED);
 		cout << setw(55) << "| ~~~ ACCOUNT BLOCKED ~~~ |" << endl;
-		Graphics::SetColor(Graphics::WHITE);
+		Graphics::SetColor(WHITE);
 		cout << setw(55) << "|                         |" << endl;
 		cout << setw(55) << "|                         |" << endl;
 		cout << setw(55) << "|                         |" << endl;
