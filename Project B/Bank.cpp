@@ -1,3 +1,6 @@
+#ifndef Bank_CPP
+#define Bank_CPP
+
 #include <iostream>
 #include <string>     // to_string()
 #include <ctime>      // time()
@@ -350,3 +353,5 @@ public:
 		infoFileWriteStream.close();
 	}
 };
+
+#endif

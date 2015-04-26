@@ -1,17 +1,9 @@
-#ifndef GRAPHICS_CPP
-#define GRAPHICS_CPP
-#include "Graphics.cpp"
-#endif
-
-#ifndef Bank_CPP
-#define Bank_CPP
-#include "Bank.cpp"
-#endif
-
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
 #include <string>
+#include "Graphics.cpp"
+#include "Bank.cpp"
 
 using namespace std;
 

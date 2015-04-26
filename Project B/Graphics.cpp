@@ -1,3 +1,6 @@
+#ifndef GRAPHICS_CPP
+#define GRAPHICS_CPP
+
 #include <windows.h>
 #include <string>
 #include <iostream>
@@ -39,3 +42,5 @@ public:
 		system("cls");
 	}
 };
+
+#endif

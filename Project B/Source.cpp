@@ -3,7 +3,6 @@
 #include <stdio.h>    
 #include <string>     // to_string()
 
-
 #include "Login_UI.cpp"
 #include "ATM_UI.cpp"
 
@@ -11,6 +10,7 @@ using namespace std;
 
 int main()
 {
+	Grahics::
 	cout
 		<< endl << endl
 		<< "\t  ____                     _                 _             ____  " << endl
