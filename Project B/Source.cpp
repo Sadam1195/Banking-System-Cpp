@@ -16,9 +16,6 @@ int main()
 	// Set Screen Size
 	system("MODE CON COLS=80 LINES=25");
 
-
-
-
 	ige::FileLogger myLog("1.0.4.2", "testfile.txt");
 	myLog << "Initiated";
 	myLog << ige::FileLogger::e_logType::LOG_WARNING << "Hey! ... This is a warning message!";
