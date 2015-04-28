@@ -148,12 +148,9 @@ private:
 				//Add_User();
 				break;
 			case 3:
-				//Freeze_Request();
-				break;
-			case 4:
 				Change_Password();
 				break;
-			case 5:
+			case 4:
 				Log_Out();
 				break;
 			}
@@ -237,7 +234,7 @@ private:
 				<< "-------------------";
 		}
 		if (LoggedUser.currentUser.role == 2) { //ACCOUNTANT
-			optionsCount = 5;
+			optionsCount = 4;
 			cout << "-------------------" << "\n\n"
 				<< " Hello,           |" << "\n"
 				<< "-------------------" << "\n\n"
@@ -246,8 +243,6 @@ private:
 				<< " Add Money        |" << "\n"
 				<< "-------------------" << "\n\n"
 				<< " Add User         |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Freeze Request   |" << "\n"
 				<< "-------------------" << "\n\n"
 				<< " Change Password  |" << "\n"
 				<< "-------------------" << "\n\n"
@@ -265,7 +260,7 @@ private:
 				<< "-------------------" << "\n\n"
 				<< " Add User         |" << "\n"
 				<< "-------------------" << "\n\n"
-				<< " Freeze Account   |" << "\n"
+				<< " Remove Account   |" << "\n"
 				<< "-------------------" << "\n\n"
 				<< " Unblock ATM      |" << "\n"
 				<< "-------------------" << "\n\n"
