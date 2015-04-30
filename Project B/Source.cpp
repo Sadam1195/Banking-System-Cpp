@@ -16,9 +16,6 @@ int main()
 	// Set Screen Size
 	system("MODE CON COLS=80 LINES=25");
 
-
-
-
 	ige::FileLogger myLog("1.0.4.2", "testfile.txt");
 	myLog << "Initiated";
 	myLog << ige::FileLogger::e_logType::LOG_WARNING << "Hey! ... This is a warning message!";
@@ -42,7 +39,7 @@ int main()
 		 << "\t\t\t\t\t\t       Zerk (P14-6012)" << endl;
 	
 	
-	Graphics::SetColor(DARKTEAL);
+	Graphics::SetColor(TEAL);
 	Graphics::goToXY(30,15);
 	cout << "ATM";
 	Graphics::goToXY(30, 16);
