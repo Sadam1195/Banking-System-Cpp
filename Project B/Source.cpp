@@ -39,7 +39,7 @@ int main()
 		 << "\t\t\t\t\t\t       Zerk (P14-6012)" << endl;
 	
 	
-	Graphics::SetColor(TEAL);
+	Graphics::SetColor(DARKTEAL);
 	Graphics::goToXY(30,15);
 	cout << "ATM";
 	Graphics::goToXY(30, 16);

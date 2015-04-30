@@ -54,10 +54,24 @@ private:
 			cout << "USERNAME: ";
 			Graphics::goToXY(25, 11);
 			cout << "PASSWORD: ";
-			Graphics::goToXY(25, 12);
+
+			Graphics::goToXY(25, 13);
+			Graphics::SetColor(YELLOW);
+			cout << "OPTIONS";
+			Graphics::SetColor(GRAY);
+			Graphics::goToXY(25, 14);
+			cout << "1) USER";
+			Graphics::goToXY(25, 15);
+			cout << "2) ACCOUNTANT";
+			Graphics::goToXY(25, 16);
+			cout << "3) MANAGER";
+			Graphics::SetColor(WHITE);
+
+			Graphics::goToXY(25, 17);
 			cout << "ROLE:";
 
-			Graphics::goToXY(20, 16);
+
+			Graphics::goToXY(20, 19);
 			cout << "------------------------------------";
 
 			Graphics::goToXY(35, 10);
@@ -73,7 +87,7 @@ private:
 			Graphics::goToXY(35, 11);
 			password = userInput(2);
 
-			Graphics::goToXY(33, 12);
+			Graphics::goToXY(31, 17);
 			role = atoi(userInput(3).c_str());
 
 			Graphics::goToXY(35, 15);
@@ -102,23 +116,78 @@ private:
 	void getFunction(int funcID) {
 		
 		clearShowScreen();
-		switch (funcID) {
-		case 0:
-			Information();
-			break;
-		case 1: 
-			Transfer_Money();
-			break;
-		case 2: 
-			Change_Password();
-			break;
-		case 3: 
-			Change_PIN();
-			break;
-		case 4: 
-			Log_Out();
-			break;
+		if (LoggedUser.currentUser.role == 1) { // USER
+			switch (funcID) {
+			case 0:
+				Information();
+				break;
+			case 1:
+				Transfer_Money();
+				break;
+			case 2:
+				Change_Password();
+				break;
+			case 3:
+				Change_PIN();
+				break;
+			case 4:
+				Log_Out();
+				break;
+			}
 		}
+
+		if (LoggedUser.currentUser.role == 2) { // ACCOUNTANT
+			switch (funcID) {
+			case 0:
+				Information();
+				break;
+			case 1:
+				//Add_Money();
+				break;
+			case 2:
+				//Add_User();
+				break;
+			case 3:
+				Change_Password();
+				break;
+			case 4:
+				Log_Out();
+				break;
+			}
+		}
+
+		if (LoggedUser.currentUser.role == 3) { // MANAGER
+			switch (funcID) {
+			case 0:
+				Information();
+				break;
+			case 1:
+				//Add_Money();
+				break;
+			case 2:
+				//Add_User();
+				break;
+			case 3:
+				//Freeze_Account(); //Delete Account
+				break;
+			case 4:
+				//Unbloc_ATM(); //Delete Account
+				break;
+			case 5:
+				//Change_User_Password();
+				break;
+			case 6:
+				//Change_User_PIN();
+				break;
+			case 7:
+				Change_Password();
+				break;
+			case 8:
+				Log_Out();
+				break;
+			}
+		}
+
 	}
 
 	string nonBlockingCIN(bool show = true) {
@@ -145,21 +214,68 @@ private:
 	}
 
 	void menu() {
-		cout << "-------------------" << "\n\n"
-			<< " Hello,           |" << "\n"
-			<< "-------------------" << "\n\n"
-			<< " Information      |" << "\n"
-			<< "-------------------" << "\n\n"
-			<< " Transfer Money   |" << "\n"
-			<< "-------------------" << "\n\n"
-			<< " Change Password  |" << "\n"
-			<< "-------------------" << "\n\n"
-			<< " Change PIN       |" << "\n"
-			<< "-------------------" << "\n\n"
-			<< " Logout           |" << "\n"
-			<< "-------------------";
-		
-		Graphics::goToXY(7,2);
+		int optionsCount = 0;
+
+
+		if (LoggedUser.currentUser.role == 1) { //USER
+			optionsCount = 4;
+			cout << "-------------------" << "\n\n"
+				<< " Hello,           |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Information      |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Transfer Money   |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Change Password  |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Change PIN       |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Logout           |" << "\n"
+				<< "-------------------";
+		}
+		if (LoggedUser.currentUser.role == 2) { //ACCOUNTANT
+			optionsCount = 4;
+			cout << "-------------------" << "\n\n"
+				<< " Hello,           |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Information      |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Add Money        |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Add User         |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Change Password  |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Logout           |" << "\n"
+				<< "-------------------";
+		}
+		if (LoggedUser.currentUser.role == 3) { //MANAGER
+			optionsCount = 8;
+			cout << "-------------------" << "\n\n"
+				<< " Hello,           |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Information      |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Add Money        |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Add User         |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Remove Account   |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Unblock ATM      |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Change User Pass |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Change User PIN  |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Change Password  |" << "\n"
+				<< "-------------------" << "\n\n"
+				<< " Logout           |" << "\n"
+				<< "-------------------";
+		}
+
+
+		Graphics::goToXY(8,2);
 		cout << LoggedUser.currentUser.username;
 
 		int count = 0;
@@ -173,7 +289,7 @@ private:
 		char ch;
 		ch = getch();
 		while (true) {
-			if (ch == 80 && count < 4) { // DOWN
+			if (ch == 80 && count < optionsCount) { // DOWN
 				Graphics::goToXY(18, y);
 				cout << "|";
 				Graphics::goToXY(18, y += 3);
