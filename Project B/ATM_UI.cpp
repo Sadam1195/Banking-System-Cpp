@@ -108,7 +108,7 @@ private:
 			<< "\t\t\t|    5000 Rs Only          |" << endl
 			<< "\t\t\t|    Custom  Only          |" << endl
 			<< "\t\t\t\\_________________________/ " << endl;
-		int money[] = { 1000, 2000, 3000, 5000, -1 };
+		float money[] = { 1000, 2000, 3000, 5000, -1 };
 		int indicator = 0;
 		Graphics::goToXY(45, 7);
 		cout << "X\b";
@@ -134,12 +134,11 @@ private:
 			}
 			if (ch == 13)
 			{
-				int cash = money[indicator];
+				float cash = money[indicator];
 				if (cash == -1) {
 					cash = customAmount();
 				}
 				return cash;
-				break;
 			}
 		}
 	}
@@ -175,9 +174,9 @@ private:
 		cout << "               ";
 		Graphics::goToXY(30, 8);
 
-		float balance = branch.getBalance(username);
+		double balance = branch.getBalance(username);
 		if (deductBalance <= balance) {
-			branch.addBalance(username, -1 * balance);
+			branch.addBalance(username, -1.0 * balance);
 			cout << "TRANSACTION COMPLETED!!!";
 		}
 		else

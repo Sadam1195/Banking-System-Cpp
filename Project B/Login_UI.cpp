@@ -109,8 +109,9 @@ private:
 		for (int i = 0; i < 20; i++) {
 			Graphics::goToXY(20, i);
 			cout << empty;
-
 		}
+		Graphics::goToXY(45, 23); cout << "Copyright (C) 2015 | Zerk & Owais";
+		//COLS = 80 LINES = 25
 	}
 
 	void getFunction(int funcID) {
@@ -142,10 +143,10 @@ private:
 				Information();
 				break;
 			case 1:
-				//Add_Money();
+				Add_Money();
 				break;
 			case 2:
-				//Add_User();
+				Add_User();
 				break;
 			case 3:
 				Change_Password();
@@ -162,22 +163,22 @@ private:
 				Information();
 				break;
 			case 1:
-				//Add_Money();
+				Add_Money();
 				break;
 			case 2:
-				//Add_User();
+				Add_User();
 				break;
 			case 3:
-				//Freeze_Account(); //Delete Account
+				Delete_Account();
 				break;
 			case 4:
-				//Unbloc_ATM(); //Delete Account
+				Unblock_ATM();
 				break;
 			case 5:
-				//Change_User_Password();
+				Change_User_Password();
 				break;
 			case 6:
-				//Change_User_PIN();
+				Change_User_PIN();
 				break;
 			case 7:
 				Change_Password();
@@ -190,8 +191,8 @@ private:
 
 	}
 
-	string nonBlockingCIN(bool show = true) {
-		string text;
+	string nonBlockingCIN(bool show = true, bool hide = false) {
+		string text = "";
 		char ch;
 		Graphics::goToXY(Graphics::whereX(),Graphics::whereY());
 		while (ch = _getch())
@@ -205,18 +206,21 @@ private:
 			}
 			else {
 				if (ch != -32) {
-					if (show) cout << (char)ch;
-					else cout << "*";
+					if (hide) 
+						cout << (char)ch;
+					else if (show) 
+						cout << (char)ch;
+					else 
+						cout << "*";
 					text.push_back(ch);
 				}
 			}
 		}
+		return ""; //removing warning
 	}
 
 	void menu() {
 		int optionsCount = 0;
-
-
 		if (LoggedUser.currentUser.role == 1) { //USER
 			optionsCount = 4;
 			cout << "-------------------" << "\n\n"
@@ -317,7 +321,7 @@ private:
 		int y = 8;
 		Graphics::goToXY(x, y);
 		cout << "Name: ";
-		Graphics::goToXY(35, 8);
+		Graphics::goToXY(36, 8);
 		cout << LoggedUser.currentUser.name;
 		y++;
 		Graphics::goToXY(x, y);
@@ -341,13 +345,13 @@ private:
 		}
 		else if (LoggedUser.user.role == 2)
 		{
-			Graphics::goToXY(Graphics::whereX(), 12);
+			Graphics::goToXY(Graphics::whereX(), 11);
 			Graphics::coutColored(YELLOW, "Accountant");
 		}
 		else if (LoggedUser.user.role == 3)
 		{
 
-			Graphics::goToXY(Graphics::whereX(), 13);
+			Graphics::goToXY(Graphics::whereX(), 11);
 			Graphics::coutColored(DARKBLUE, "Manager");
 			
 		}
@@ -408,7 +412,7 @@ private:
 		if (dummy == "") return;
 		Amount_Sended = atoi(dummy.c_str());
 
-		float Sender_Bal = LoggedUser.getBalance(Sender_Name);
+		double Sender_Bal = LoggedUser.getBalance(Sender_Name);
 		
 		Graphics::goToXY(x, y += 4);
 		if (Amount_Sended <= Sender_Bal)
@@ -460,13 +464,14 @@ private:
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);
-		cout << "Do you want to Log Out: ";
-		dummy = nonBlockingCIN(false);
-		if (dummy == "") return;
-
-		if ((int)dummy[dummy.size() - 1] == 13)
+		cout << "Do you want to Log Out - Press Enter ";
+		dummy = nonBlockingCIN(true,true);
+		cout << "I am out";
+		
+		if (dummy == "")
 		{
 			LoggedUser.logout();
+			run();
 			return;
 		}
 		
@@ -487,6 +492,116 @@ private:
 				return;
 			}
 
+		}
+
+	}
+
+	void Add_Money() {
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);	  cout << "Username: ";
+		Graphics::goToXY(x, ++y); cout << "Amount: ";
+		Graphics::goToXY(x+10, y-2); string username = nonBlockingCIN();
+		Graphics::goToXY(x+8, y-1); double amount = atof(nonBlockingCIN().c_str());
+		if (LoggedUser.addBalance(username, amount) == true) {
+			Graphics::goToXY(x, y+=4); cout << "Amount successfully added.";
+		}
+		else {
+			Graphics::goToXY(x, y += 4); cout << "Failed to add money.";
+		}
+	}
+
+	void Change_User_Password() {
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);	  cout << "Username: ";
+		Graphics::goToXY(x, ++y); cout << "Password: ";
+		Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
+		Graphics::goToXY(x + 10, y - 1); string pass = nonBlockingCIN();
+		if (LoggedUser.changePassword(username, pass) == true) {
+			Graphics::goToXY(x, y += 4); cout << "Password Changed";
+		}
+		else {
+			Graphics::goToXY(x, y += 4); cout << "Failed to change password.";
+		}
+	}
+
+	void Change_User_PIN() {
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);	  cout << "Username: ";
+		Graphics::goToXY(x, ++y); cout << "PIN: ";
+		Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
+		Graphics::goToXY(x + 6, y - 1); string PIN = nonBlockingCIN();
+		if (LoggedUser.changePIN(username, atoi(PIN.c_str())) == true) {
+			Graphics::goToXY(x, y += 4); cout << "PIN Changed";
+		}
+		else {
+			Graphics::goToXY(x, y += 4); cout << "Failed to change PIN.";
+		}
+	}
+
+	void Delete_Account() {
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);	  cout << "Username: ";
+		Graphics::goToXY(x, ++y);	  cout << "Are you sure (Y/N): ";
+		Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+		Graphics::goToXY(x + 20, y - 2); string confirm = nonBlockingCIN();
+
+
+		if (confirm[0] == 'Y' || confirm[0] == 'y') {
+			LoggedUser.deleteUser(username);
+			Graphics::goToXY(x, y += 4); cout << "User Removed.";
+		}
+		else {
+			Graphics::goToXY(x, y += 4); cout << "Fail to remove user.";
+		}
+	}
+
+	void Unblock_ATM() {
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);	  cout << "Username: ";
+		Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+
+
+		if (LoggedUser.unlockATM(username,0) == true) {
+			Graphics::goToXY(x, y += 4); cout << "User ATM unlocked.";
+		}
+		else {
+			Graphics::goToXY(x, y += 4); cout << "Fail to unlock ATM.";
+		}
+	}
+
+	void Add_User() {
+		userDetail newUser;
+
+		int x = 30;
+		int y = 8;
+		Graphics::goToXY(x, y);	  cout << "Name: ";
+		Graphics::goToXY(x, ++y); cout << "Username: ";
+		Graphics::goToXY(x, ++y); cout << "Password: ";
+		Graphics::goToXY(x, ++y); cout << "Role: ";
+		Graphics::goToXY(x + 7, y - 4); newUser.name = nonBlockingCIN();
+		Graphics::goToXY(x + 11, y - 3); newUser.username = nonBlockingCIN();
+		Graphics::goToXY(x + 11, y - 2); newUser.password = nonBlockingCIN(true);
+		Graphics::goToXY(x + 7, y - 2); newUser.role = atoi(nonBlockingCIN(true).c_str());
+
+		if (newUser.role < 1 && newUser.role > 3) {
+			newUser.role = 1;
+		}
+
+		newUser.pin = Bank::randomPIN();
+		newUser.atmBlocked = 0;
+
+		if (LoggedUser.addUser(newUser) == true)// if return false mean user already exist with that username
+		{
+			Graphics::goToXY(x, y + 4); cout << "User Added";
+			Graphics::goToXY(x, y + 4); cout << "User ATM PIN is " << newUser.pin;
+		}
+		else {
+			Graphics::goToXY(x, y + 4); cout << "User already exists.";
 		}
 
 	}

@@ -22,8 +22,6 @@ int main()
 	myLog << ige::FileLogger::e_logType::LOG_ERROR << "WOW! Something really wrong is happening here!";
 	myLog << "This is just a simple text";
 
-
-
 	Graphics::SetColor(YELLOW);
 	cout
 		<< endl << endl
@@ -39,6 +37,8 @@ int main()
 		 << "\t\t\t\t\t\t       Zerk (P14-6012)" << endl;
 	
 	
+
+
 	Graphics::SetColor(DARKTEAL);
 	Graphics::goToXY(30,15);
 	cout << "ATM";
