@@ -3,10 +3,10 @@
 This is Zerk and Owais 2nd semester project.
 
 ## Default Accounts ##
-**USERNAME**      - **PASSWORD**    - **ATM PIN**
-* user          | pass        | 1234
-* accountant    | pass        | 1234
-* manager       | pass        | 1234
+**USERNAME** - **PASSWORD** - **ATM PIN**
+* user - pass - 1234
+* accountant - pass - 1234
+* manager - pass - 1234
 
 ## Compiler ##
 
