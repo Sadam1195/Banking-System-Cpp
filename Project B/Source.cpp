@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
 	// Set Screen Size
-	system("MODE CON COLS=80 LINES=25");
+	system("MODE CON COLS=80 LINES=30");
 
 	ige::FileLogger myLog("1.0.4.2", "testfile.txt");
 	myLog << "Initiated";

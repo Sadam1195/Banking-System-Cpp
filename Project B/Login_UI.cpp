@@ -14,6 +14,10 @@ private:
 	string username, password;
 	int role;
 	Bank LoggedUser;
+	
+	void setTitle(string title) {
+		Graphics::goToXY(30,1); cout << title;
+	}
 
 	string userInput(int type) {
 		char ch;
@@ -279,7 +283,7 @@ private:
 		}
 
 
-		Graphics::goToXY(8,2);
+		Graphics::goToXY(8,1);
 		cout << LoggedUser.currentUser.username;
 
 		int count = 0;
@@ -316,6 +320,7 @@ private:
 
 	void Information()
 	{
+		setTitle("!!! INFORMATION !!!");
 		userDetail user;
 		int x = 30;
 		int y = 8;
@@ -360,6 +365,7 @@ private:
 
 	void Transfer_Money()
 	{
+		setTitle("!!! TRANSFER MONEY !!!");
 		int Amount_Sended=-1;
 		string Reciver_Name;
 		string Sender_Name;
@@ -429,6 +435,7 @@ private:
 
 	void Change_Password()
 	{
+		setTitle("!!! CHANGE PASSWORD !!!");
 		string new_pass;
 		int x = 30;
 		int y = 8;
@@ -445,6 +452,7 @@ private:
 
 	void Change_PIN()
 	{
+		setTitle("!!! CHANGE PIN !!!");
 		string new_pin;
 		int x = 30;
 		int y = 8;
@@ -460,6 +468,7 @@ private:
 	 
 	void Log_Out()
 	{
+		setTitle("!!! LOGOUT !!!");
 		string dummy;
 		int x = 30;
 		int y = 8;
@@ -479,6 +488,7 @@ private:
 
 	void unlockATM()
 	{
+		setTitle("!!! UNLOCK ATM !!!");
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);
@@ -497,6 +507,7 @@ private:
 	}
 
 	void Add_Money() {
+		setTitle("!!! ADD MONEY !!!");
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);	  cout << "Username: ";
@@ -512,6 +523,7 @@ private:
 	}
 
 	void Change_User_Password() {
+		setTitle("!!! CHANGE USER PASSWORD !!!");
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);	  cout << "Username: ";
@@ -527,12 +539,13 @@ private:
 	}
 
 	void Change_User_PIN() {
+		setTitle("!!! CHANGE USER PIN !!!");
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);	  cout << "Username: ";
 		Graphics::goToXY(x, ++y); cout << "PIN: ";
-		Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
-		Graphics::goToXY(x + 6, y - 1); string PIN = nonBlockingCIN();
+		Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+		Graphics::goToXY(x + 6, y); string PIN = nonBlockingCIN();
 		if (LoggedUser.changePIN(username, atoi(PIN.c_str())) == true) {
 			Graphics::goToXY(x, y += 4); cout << "PIN Changed";
 		}
@@ -542,12 +555,13 @@ private:
 	}
 
 	void Delete_Account() {
+		setTitle("!!! DELETE ACCOUNT !!!");
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);	  cout << "Username: ";
 		Graphics::goToXY(x, ++y);	  cout << "Are you sure (Y/N): ";
-		Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
-		Graphics::goToXY(x + 20, y - 2); string confirm = nonBlockingCIN();
+		Graphics::goToXY(x + 10, y); string username = nonBlockingCIN();
+		Graphics::goToXY(x + 20, y - 1); string confirm = nonBlockingCIN();
 
 
 		if (confirm[0] == 'Y' || confirm[0] == 'y') {
@@ -560,10 +574,11 @@ private:
 	}
 
 	void Unblock_ATM() {
+		setTitle("!!! UNLOCK ATM !!!");
 		int x = 30;
 		int y = 8;
 		Graphics::goToXY(x, y);	  cout << "Username: ";
-		Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+		Graphics::goToXY(x + 10, y); string username = nonBlockingCIN();
 
 
 		if (LoggedUser.unlockATM(username,0) == true) {
@@ -575,6 +590,7 @@ private:
 	}
 
 	void Add_User() {
+		setTitle("!!!ADD USER !!!");
 		userDetail newUser;
 
 		int x = 30;
@@ -583,10 +599,10 @@ private:
 		Graphics::goToXY(x, ++y); cout << "Username: ";
 		Graphics::goToXY(x, ++y); cout << "Password: ";
 		Graphics::goToXY(x, ++y); cout << "Role: ";
-		Graphics::goToXY(x + 7, y - 4); newUser.name = nonBlockingCIN();
-		Graphics::goToXY(x + 11, y - 3); newUser.username = nonBlockingCIN();
-		Graphics::goToXY(x + 11, y - 2); newUser.password = nonBlockingCIN(true);
-		Graphics::goToXY(x + 7, y - 2); newUser.role = atoi(nonBlockingCIN(true).c_str());
+		Graphics::goToXY(x + 7, y - 3); newUser.name = nonBlockingCIN();
+		Graphics::goToXY(x + 11, y - 2); newUser.username = nonBlockingCIN();
+		Graphics::goToXY(x + 11, y - 1); newUser.password = nonBlockingCIN(true);
+		Graphics::goToXY(x + 7, y); newUser.role = atoi(nonBlockingCIN(true).c_str());
 
 		if (newUser.role < 1 && newUser.role > 3) {
 			newUser.role = 1;
