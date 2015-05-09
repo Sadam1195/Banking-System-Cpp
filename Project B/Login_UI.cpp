@@ -19,7 +19,7 @@ private:
 	Bank LoggedUser;
 	
 	void setTitle(string title) {
-		Graphics::goToXY(30,1); cout << title;
+		Graphics::coutV3(30, 1, title, DARKYELLOW);
 	}
 
 	string userInput(int type) {
@@ -52,41 +52,25 @@ private:
 		Graphics::cls();
 		while (true) {
 			Graphics::goToXY(20, 5);
-			cout << "------------------------------------";
-			Graphics::goToXY(20, 7);
-			cout << "          *** LOGIN ***             ";
+			Graphics::coutV3(20, 5, "------------------------------------", TEAL);
+
+			Graphics::coutV3(25, 7, "          *** LOGIN ***             ", GREEN);
+
+			Graphics::coutV3(25, 10, "Username: ", YELLOW);
+			Graphics::coutV3(25, 11, "Password: ", YELLOW);
+
+			Graphics::coutV3(25, 13, "~ OPTIONS ~", PINK);
+			Graphics::coutV3(25, 14, " 1) User" , GRAY);
+			Graphics::coutV3(25, 15, " 2) Accountant", GRAY);
+			Graphics::coutV3(25, 16, " 3) Manager", GRAY);
+			Graphics::coutV3(25, 17, "Role: ", YELLOW);
+
+			Graphics::coutV3(20, 19, "------------------------------------", TEAL);
 
 
-			Graphics::goToXY(25, 10);
-			cout << "USERNAME: ";
-			Graphics::goToXY(25, 11);
-			cout << "PASSWORD: ";
-
-			Graphics::goToXY(25, 13);
-			Graphics::SetColor(YELLOW);
-			cout << "OPTIONS";
-			Graphics::SetColor(GRAY);
-			Graphics::goToXY(25, 14);
-			cout << "1) USER";
-			Graphics::goToXY(25, 15);
-			cout << "2) ACCOUNTANT";
-			Graphics::goToXY(25, 16);
-			cout << "3) MANAGER";
-			Graphics::SetColor(WHITE);
-
-			Graphics::goToXY(25, 17);
-			cout << "ROLE:";
-
-
-			Graphics::goToXY(20, 19);
-			cout << "------------------------------------";
-
-			Graphics::goToXY(35, 10);
-			cout << "                  ";
-			Graphics::goToXY(35, 11);
-			cout << "                  ";
-			Graphics::goToXY(35, 12);
-			cout << "                  ";
+			Graphics::coutV3(35, 10, "                  ");
+			Graphics::coutV3(35, 11, "                  ");
+			Graphics::coutV3(31, 12, "                  ");
 
 			Graphics::goToXY(35, 10);
 			username = userInput(1);
@@ -99,7 +83,6 @@ private:
 
 			Graphics::goToXY(35, 15);
 
-			//cout << username << " " << password << " " << role;
 			if (LoggedUser.login(username, password, role))
 			{
 				return true;
@@ -117,8 +100,8 @@ private:
 			Graphics::goToXY(20, i);
 			cout << empty;
 		}
-		Graphics::goToXY(45, 30); cout << "Copyright (C) 2015 | Zerk & Owais";
-		//COLS = 80 LINES = 25
+
+		Graphics::coutV3(45, 30, "Copyright (C) 2015 | Zerk & Owais" , DARKTEAL);
 	}
 
 	void getFunction(int funcID) {
@@ -232,72 +215,85 @@ private:
 		return ""; //removing warning
 	}
 
+	// Add Color
 	void menu() {
 		int optionsCount = 0;
 		if (LoggedUser.currentUser.role == 1) { //USER
 			optionsCount = 4;
-			cout << "-------------------" << "\n\n"
-				<< " Hello,           |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Information      |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Transfer Money   |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Change Password  |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Change PIN       |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Logout           |" << "\n"
-				<< "-------------------";
+
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Hello,           "); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Information      ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Transfer Money   ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Change Password  ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Change PIN       ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Logout           ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
 		}
 		if (LoggedUser.currentUser.role == 2) { //ACCOUNTANT
 			optionsCount = 4;
-			cout << "-------------------" << "\n\n"
-				<< " Hello,           |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Information      |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Add Money        |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Add User         |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Change Password  |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Logout           |" << "\n"
-				<< "-------------------";
+
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Hello,           ", GRAY); cout << "|\n";
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Information      ", GRAY); cout << "|\n";
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Add Money        ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Add User         ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Change Password  ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Logout           ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
+			Graphics::coutV2("                  |\n\n\n", GREEN);
 		}
 		if (LoggedUser.currentUser.role == 3) { //MANAGER
 			optionsCount = 8;
-			cout << "-------------------" << "\n\n"
-				<< " Hello,           |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Information      |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Add Money        |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Add User         |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Remove Account   |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Unblock ATM      |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Change User Pass |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Change User PIN  |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Change Password  |" << "\n"
-				<< "-------------------" << "\n\n"
-				<< " Logout           |" << "\n"
-				<< "-------------------";
+
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Hello,           ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Information      ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Add Money        ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Add User         ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Remove Account   ", GRAY); Graphics::coutV2("| \n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Unblock ATM      ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Change User Pass ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Change User PIN  ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Change Password  ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
+			Graphics::coutV2(" Logout           ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2("-------------------\n\n", DARKGREEN);
 		}
 
-
-		Graphics::goToXY(8,2);
-		cout << LoggedUser.currentUser.username;
+		Graphics::coutV3(8, 2, LoggedUser.currentUser.username, GREEN);
 
 		int count = 0;
 
+		int x = 18;
 		int y = 5;
+
+		Graphics::coutV3(x, y, "Enter new password: ", YELLOW);
 		Graphics::goToXY(18, y);
 
 		Graphics::coutColored(GREEN,"X\b");
@@ -342,44 +338,33 @@ private:
 		userDetail user;
 		int x = 30;
 		int y = 8;
-		Graphics::goToXY(x, y);
-		cout << "Name: ";
-		Graphics::goToXY(36, 8);
-		cout << LoggedUser.currentUser.name;
-		y++;
-		Graphics::goToXY(x, y);
-		cout << "Creation Date: ";
-		Graphics::goToXY(45, 9);
-		cout << LoggedUser.creationData();
-		y++;
-;
-		
+
+		Graphics::coutV3(x, y++, "Name: ", YELLOW);
+
+		Graphics::coutV3(36, 8, LoggedUser.currentUser.name);
+
+		Graphics::coutV3(x, y++, "Creation Date: ", YELLOW);
+
+		Graphics::coutV3(45, 9, LoggedUser.creationData());
+
+	
 		if (LoggedUser.currentUser.role == 1)
 		{
-			Graphics::goToXY(x, y);
-			cout << "Balance: ";
-			Graphics::goToXY(40, 10);
-			cout << LoggedUser.getBalance(username);
-			y++;
-
-			Graphics::goToXY(x, y);	cout << "Status: ";
-
-			Graphics::goToXY(Graphics::whereX() , 11);
-			Graphics::coutColored(PINK, "User");
+			Graphics::coutV3(x, y, "Balance: ", YELLOW);
+			Graphics::coutV3(x+10, y++, to_string(LoggedUser.getBalance(username)));
+			Graphics::coutV3(x, y++, "Status:", YELLOW);
+			Graphics::coutV3(x + 9, 11, "User");
 
 		}
 		else if (LoggedUser.user.role == 2)
 		{
-			Graphics::goToXY(x, y);	cout << "Status: ";
-			Graphics::goToXY(Graphics::whereX(), 10);
-			Graphics::coutColored(YELLOW, "Accountant");
+			Graphics::coutV3(x, y, "Status: ", YELLOW);
+			Graphics::coutV3(x + 9, 10, "Accountant");
 		}
 		else if (LoggedUser.user.role == 3)
 		{
-			Graphics::goToXY(x, y);	cout << "Status: ";
-			Graphics::goToXY(Graphics::whereX(), 10);
-			Graphics::coutColored(DARKBLUE, "Manager");
-			
+			Graphics::coutV3(x, y, "Status: ", YELLOW);
+			Graphics::coutV3(x + 9, 10, "Manager");
 		}
 		_getch();
 	}
@@ -394,14 +379,10 @@ private:
 			Bank LoggedUser;
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);
-			cout << "Sender Name: ";
-			y++;
-			Graphics::goToXY(x, y);
-			cout << "Reciever Name: ";
-			y++;
-			Graphics::goToXY(x, y);
-			cout << "Amount: ";
+
+			Graphics::coutV3(x, y++, "Sender Name: ", YELLOW);
+			Graphics::coutV3(x, y++, "Reciever Name: ", YELLOW);
+			Graphics::coutV3(x, y++, "Amount: ", YELLOW);
 
 		
 			while (true)
@@ -415,8 +396,8 @@ private:
 					break;
 				}
 				else {
-					Graphics::goToXY(43, 8);
-					cout << "         ";
+					Graphics::coutV3(43, 8, "         ");
+
 				}
 			}
 			while (true)
@@ -430,8 +411,7 @@ private:
 					break;
 				}
 				else {
-					Graphics::goToXY(44, 9);
-					cout << "         ";
+					Graphics::coutV3(44, 9, "         ");
 				}
 			}
 
@@ -443,16 +423,15 @@ private:
 
 			double Sender_Bal = LoggedUser.getBalance(Sender_Name);
 
-			Graphics::goToXY(x, y += 4);
 			if (Amount_Sended <= Sender_Bal)
 			{
 				LoggedUser.addBalance(Sender_Name, -1 * Amount_Sended);
 				LoggedUser.addBalance(Reciver_Name, Amount_Sended);
-				cout << "Money Successfully Transfered!!!!!" << endl;
+				Graphics::coutV3(x, y += 4, "Money Successfully Transfered!!!", BLUE);
 			}
 			else
 			{
-				cout << "Money Over-flow";
+				Graphics::coutV3(x, y += 4, "Money Over-flow!!!", RED);
 			}
 		}
 		catch (int e) {
@@ -468,14 +447,14 @@ private:
 			string new_pass;
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);		
-			cout << "Enter new password: ";
+			Graphics::coutV3(x, y, "Enter new password: ", YELLOW);
+
+
 			new_pass = nonBlockingCIN(true);
-			if (new_pass == "") return;
 			LoggedUser.changePassword(LoggedUser.currentUser.username, new_pass);
 
-			Graphics::goToXY(x, y += 4);
-			cout << "Password Changed!!!";
+			Graphics::coutV3(x, y += 4, "Password Changed.", BLUE);
+
 		}
 	
 		catch (int e) {
@@ -491,14 +470,15 @@ private:
 			string new_pin;
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);
-			cout << "Enter new pin: ";
+			Graphics::coutV3(x, y, "Enter new pin: ", YELLOW);
+
+
 			new_pin = nonBlockingCIN(true);
 			if (new_pin == "") return;
 
 			LoggedUser.changePIN( LoggedUser.currentUser.username,atoi(new_pin.c_str()));
-			Graphics::goToXY(x, y += 4);
-			cout << "PIN Changed!!!";
+
+			Graphics::coutV3(x, y += 4, "PIN Changed!!!", BLUE);
 		}
 		catch (int e) {
 			throw e;
@@ -513,10 +493,9 @@ private:
 			string dummy;
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);
-			cout << "Do you want to Log Out - Press Enter ";
+			Graphics::coutV3(x, y, "Do you want to Log Out - Press Enter", YELLOW);
+
 			dummy = nonBlockingCIN(true,true);
-			cout << "I am out";
 		
 			if (dummy == "")
 			{
@@ -534,20 +513,16 @@ private:
 	{
 		try {
 			setTitle("!!! UNLOCK ATM !!!");
+			string new_pass;
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);
-			cout << "Do you want to Log Out: ";
-			while (true)
-			{
-				if (_getch() == 13)
-				{
-					LoggedUser.logout();
+			Graphics::coutV3(x, y, "Username: ", YELLOW);
 
-					return;
-				}
+			username = nonBlockingCIN();
 
-			}
+			LoggedUser.unlockATM(LoggedUser.currentUser.username, 0);
+
+			Graphics::coutV3(x, y += 4, username + " atm unlocked.", BLUE);
 		}
 		catch (int e) {
 			throw e;
@@ -559,15 +534,18 @@ private:
 			setTitle("!!! ADD MONEY !!!");
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);	  cout << "Username: ";
-			Graphics::goToXY(x, ++y); cout << "Amount: ";
-			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 8, y); double amount = atof(nonBlockingCIN().c_str());
+
+			Graphics::coutV3(x, y++, "Username: ", YELLOW);
+			Graphics::coutV3(x, y++, "Password: ", YELLOW);
+
+			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
+			Graphics::goToXY(x + 8, y - 1); double amount = atof(nonBlockingCIN().c_str());
+
 			if (LoggedUser.addBalance(username, amount) == true) {
-				Graphics::goToXY(x, y += 4); cout << "Amount successfully added.";
+				Graphics::coutV3(x, y += 4, "Amount successfully added.", BLUE);
 			}
 			else {
-				Graphics::goToXY(x, y += 4); cout << "Failed to add money.";
+				Graphics::coutV3(x, y += 4, "Failed to add money.", RED);
 			}
 		}
 		catch (int e) {
@@ -580,15 +558,18 @@ private:
 			setTitle("!!! CHANGE USER PASSWORD !!!");
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);	  cout << "Username: ";
-			Graphics::goToXY(x, ++y); cout << "Password: ";
-			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 10, y); string pass = nonBlockingCIN();
+
+
+			Graphics::coutV3(x, y++, "Username: ", YELLOW);
+			Graphics::coutV3(x, y++, "Password: ", YELLOW);
+
+			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y - 1); string pass = nonBlockingCIN();
 			if (LoggedUser.changePassword(username, pass) == true) {
-				Graphics::goToXY(x, y += 4); cout << "Password Changed";
+				Graphics::coutV3(x, y += 4, "Password Changed", BLUE);
 			}
 			else {
-				Graphics::goToXY(x, y += 4); cout << "Failed to change password.";
+				Graphics::coutV3(x, y += 4, "Failed to change password.", BLUE);
 			}
 		}
 		catch (int e) {
@@ -601,15 +582,19 @@ private:
 			setTitle("!!! CHANGE USER PIN !!!");
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);	  cout << "Username: ";
-			Graphics::goToXY(x, ++y); cout << "PIN: ";
-			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 6, y); string PIN = nonBlockingCIN();
+
+			Graphics::coutV3(x, y++, "Username: ", YELLOW);
+			Graphics::coutV3(x, y++, "PIN", YELLOW);
+
+
+			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
+			Graphics::goToXY(x + 6, y - 1); string PIN = nonBlockingCIN();
+
 			if (LoggedUser.changePIN(username, atoi(PIN.c_str())) == true) {
-				Graphics::goToXY(x, y += 4); cout << "PIN Changed";
+				Graphics::coutV3(x, y += 4, "PIN Changed", BLUE);
 			}
 			else {
-				Graphics::goToXY(x, y += 4); cout << "Failed to change PIN.";
+				Graphics::coutV3(x, y += 4, "Failed to change PIN.", RED);
 			}
 		}
 		catch (int e) {
@@ -622,18 +607,22 @@ private:
 			setTitle("!!! DELETE ACCOUNT !!!");
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);	  cout << "Username: ";
-			Graphics::goToXY(x, ++y);	  cout << "Are you sure (Y/N): ";
-			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 20, y); string confirm = nonBlockingCIN();
+			Graphics::coutV3(x, y++, "Username: ", YELLOW);
+			Graphics::coutV3(x, y++, "Are you sure (Y/N): ", YELLOW);
+
+			Graphics::goToXY(x + 10, y - 2); 
+			string username = nonBlockingCIN();
+
+			Graphics::goToXY(x + 20, y - 1); 
+			string confirm = nonBlockingCIN();
 
 
 			if (confirm[0] == 'Y' || confirm[0] == 'y') {
 				LoggedUser.deleteUser(username);
-				Graphics::goToXY(x, y += 4); cout << "User Removed.";
+				Graphics::coutV3(x, y += 4, "User removed.", BLUE);
 			}
 			else {
-				Graphics::goToXY(x, y += 4); cout << "Fail to remove user.";
+				Graphics::coutV3(x, y += 4, "Fail to remove user.", RED);
 			}
 		}
 		catch (int e) {
@@ -646,15 +635,16 @@ private:
 			setTitle("!!! UNLOCK ATM !!!");
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);	  cout << "Username: ";
+			Graphics::coutV3(x, y, "Username: ", YELLOW);
+
 			Graphics::goToXY(x + 10, y); string username = nonBlockingCIN();
 
-
 			if (LoggedUser.unlockATM(username, 0) == true) {
-				Graphics::goToXY(x, y += 4); cout << "User ATM unlocked.";
+				Graphics::coutV3(x, y += 4, "User ATM unlocked.", BLUE);
 			}
 			else {
-				Graphics::goToXY(x, y += 4); cout << "Fail to unlock ATM.";
+				Graphics::coutV3(x, y += 4, "User ATM unlocked.", RED);
+
 			}
 		}
 		catch (int e) {
@@ -669,14 +659,24 @@ private:
 
 			int x = 30;
 			int y = 8;
-			Graphics::goToXY(x, y);	  cout << "Name: ";
-			Graphics::goToXY(x, ++y); cout << "Username: ";
-			Graphics::goToXY(x, ++y); cout << "Password: ";
-			Graphics::goToXY(x, ++y); cout << "Role: ";
-			Graphics::goToXY(x + 7, y - 3); newUser.name = nonBlockingCIN();
-			Graphics::goToXY(x + 11, y - 2); newUser.username = nonBlockingCIN();
-			Graphics::goToXY(x + 11, y - 1); newUser.password = nonBlockingCIN(true);
-			Graphics::goToXY(x + 7, y); newUser.role = atoi(nonBlockingCIN(true).c_str());
+
+
+			Graphics::coutV3(x, y++, "Name: ", YELLOW);
+			Graphics::coutV3(x, y++, "Username: ", YELLOW);
+			Graphics::coutV3(x, y++, "Password ", YELLOW);
+			Graphics::coutV3(x, y++, "Role ", YELLOW);
+
+			Graphics::goToXY(x + 7, y - 4); 
+			newUser.name = nonBlockingCIN();
+
+			Graphics::goToXY(x + 11, y - 3); 
+			newUser.username = nonBlockingCIN();
+
+			Graphics::goToXY(x + 11, y - 2); 
+			newUser.password = nonBlockingCIN(true);
+
+			Graphics::goToXY(x + 7, y - 1); 
+			newUser.role = atoi(nonBlockingCIN(true).c_str());
 
 			if (newUser.role < 1 && newUser.role > 3) {
 				newUser.role = 1;
@@ -687,11 +687,11 @@ private:
 
 			if (LoggedUser.addUser(newUser) == true)// if return false mean user already exist with that username
 			{
-				Graphics::goToXY(x, y + 4); cout << "User Added";
-				Graphics::goToXY(x, y + 4); cout << "User ATM PIN is " << newUser.pin;
+				Graphics::coutV3(x, y + 4, "User Added", BLUE);
+				Graphics::coutV3(x, y + 5, "User ATM PIN is " + newUser.pin, BLUE);
 			}
 			else {
-				Graphics::goToXY(x, y + 4); cout << "User already exists.";
+				Graphics::coutV3(x, y + 4, "User Already Exist", RED);
 			}
 		}
 		catch (int e) {
