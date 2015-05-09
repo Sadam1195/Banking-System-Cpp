@@ -245,7 +245,7 @@ public:
 		return flag;
 	}
 
-	bool login(string username, string password, short int role) {
+	bool login(string username, string password, int role) {
 		string line;
 		bool flag = false;
 		userDetail userData;
@@ -258,7 +258,10 @@ public:
 			>> userData.atmBlocked
 			)
 		{
-			if (userData.username == username && userData.password == password) {
+			if (userData.username == username &&
+				userData.password == password &&
+				userData.role == role
+				) {
 				flag = true;
 				currentUser = userData; // Login user
 				currentUser.name = replaceWith(getValueByKey(username, "NAME"), '_', ' ');
