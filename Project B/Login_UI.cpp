@@ -561,8 +561,8 @@ private:
 			int y = 8;
 			Graphics::goToXY(x, y);	  cout << "Username: ";
 			Graphics::goToXY(x, ++y); cout << "Amount: ";
-			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 8, y - 1); double amount = atof(nonBlockingCIN().c_str());
+			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+			Graphics::goToXY(x + 8, y); double amount = atof(nonBlockingCIN().c_str());
 			if (LoggedUser.addBalance(username, amount) == true) {
 				Graphics::goToXY(x, y += 4); cout << "Amount successfully added.";
 			}
@@ -582,8 +582,8 @@ private:
 			int y = 8;
 			Graphics::goToXY(x, y);	  cout << "Username: ";
 			Graphics::goToXY(x, ++y); cout << "Password: ";
-			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 10, y - 1); string pass = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y); string pass = nonBlockingCIN();
 			if (LoggedUser.changePassword(username, pass) == true) {
 				Graphics::goToXY(x, y += 4); cout << "Password Changed";
 			}
@@ -624,8 +624,8 @@ private:
 			int y = 8;
 			Graphics::goToXY(x, y);	  cout << "Username: ";
 			Graphics::goToXY(x, ++y);	  cout << "Are you sure (Y/N): ";
-			Graphics::goToXY(x + 10, y); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 20, y - 1); string confirm = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y - 1); string username = nonBlockingCIN();
+			Graphics::goToXY(x + 20, y); string confirm = nonBlockingCIN();
 
 
 			if (confirm[0] == 'Y' || confirm[0] == 'y') {
@@ -664,7 +664,7 @@ private:
 
 	void Add_User() {
 		try {
-			setTitle("!!!ADD USER !!!");
+			setTitle("!!! ADD USER !!!");
 			userDetail newUser;
 
 			int x = 30;
