@@ -3,7 +3,9 @@
 
 #include <windows.h>
 #include <string>
+#include <string.h>
 #include <iostream>
+using namespace std;
 
 enum Color { DARKBLUE = 1, DARKGREEN, DARKTEAL, DARKRED, DARKPINK, DARKYELLOW, GRAY, DARKGRAY, BLUE, GREEN, TEAL, RED, PINK, YELLOW, WHITE };
 
@@ -16,7 +18,7 @@ public:
 		//	cout << "X\b";
 	}
 
-	static void coutColored(Color c, std::string text) {
+	static void coutColored(Color c, string text) {
 		SetColor(c);
 		std::cout << text;
 		SetColor(WHITE);
@@ -42,6 +44,21 @@ public:
 	static void cls() {
 		system("cls");
 	}
+
+	static void coutV2(string str, Color c = WHITE) {
+		SetColor(c);
+		cout << str;
+		SetColor(WHITE);
+	}
+
+	static void coutV3(int x, int y, string str, Color c = WHITE) {
+		goToXY(x,y);
+		SetColor(c);
+		cout << str;
+		SetColor(WHITE);
+		goToXY(0, 0);
+	}
 };
+
 
 #endif
