@@ -215,7 +215,6 @@ private:
 		return ""; //removing warning
 	}
 
-	// Add Color
 	void menu() {
 		int optionsCount = 0;
 		if (LoggedUser.currentUser.role == 1) { //USER
@@ -375,34 +374,17 @@ private:
 			setTitle("!!! TRANSFER MONEY !!!");
 			int Amount_Sended = -1;
 			string Reciver_Name;
-			string Sender_Name;
 			Bank LoggedUser;
 			int x = 30;
 			int y = 8;
 
-			Graphics::coutV3(x, y++, "Sender Name: ", YELLOW);
 			Graphics::coutV3(x, y++, "Reciever Name: ", YELLOW);
 			Graphics::coutV3(x, y++, "Amount: ", YELLOW);
 
-		
+
 			while (true)
 			{
-				Graphics::goToXY(43, 8);
-
-				Sender_Name = nonBlockingCIN();
-				if (Sender_Name == "") return;
-				if (LoggedUser.usernameAlreadyExist(Sender_Name))
-				{
-					break;
-				}
-				else {
-					Graphics::coutV3(43, 8, "         ");
-
-				}
-			}
-			while (true)
-			{
-				Graphics::goToXY(45, 9);
+				Graphics::goToXY(45, 8);
 				Reciver_Name = nonBlockingCIN();
 				if (Reciver_Name == "") return;
 
@@ -421,11 +403,11 @@ private:
 			if (dummy == "") return;
 			Amount_Sended = atoi(dummy.c_str());
 
-			double Sender_Bal = LoggedUser.getBalance(Sender_Name);
+			double Sender_Bal = LoggedUser.getBalance(LoggedUser.currentUser.username);
 
 			if (Amount_Sended <= Sender_Bal)
 			{
-				LoggedUser.addBalance(Sender_Name, -1 * Amount_Sended);
+				LoggedUser.addBalance(LoggedUser.currentUser.username, -1 * Amount_Sended);
 				LoggedUser.addBalance(Reciver_Name, Amount_Sended);
 				Graphics::coutV3(x, y += 4, "Money Successfully Transfered!!!", BLUE);
 			}
@@ -449,7 +431,7 @@ private:
 			int y = 8;
 			Graphics::coutV3(x, y, "Enter new password: ", YELLOW);
 
-
+			Graphics::goToXY(x + 18,y);
 			new_pass = nonBlockingCIN(true);
 			LoggedUser.changePassword(LoggedUser.currentUser.username, new_pass);
 
@@ -472,7 +454,7 @@ private:
 			int y = 8;
 			Graphics::coutV3(x, y, "Enter new pin: ", YELLOW);
 
-
+			Graphics::goToXY(x + 15, y);
 			new_pin = nonBlockingCIN(true);
 			if (new_pin == "") return;
 
@@ -518,6 +500,7 @@ private:
 			int y = 8;
 			Graphics::coutV3(x, y, "Username: ", YELLOW);
 
+			Graphics::goToXY(x + 10, y);
 			username = nonBlockingCIN();
 
 			LoggedUser.unlockATM(LoggedUser.currentUser.username, 0);
@@ -536,7 +519,7 @@ private:
 			int y = 8;
 
 			Graphics::coutV3(x, y++, "Username: ", YELLOW);
-			Graphics::coutV3(x, y++, "Password: ", YELLOW);
+			Graphics::coutV3(x, y++, "Amount: ", YELLOW);
 
 			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
 			Graphics::goToXY(x + 8, y - 1); double amount = atof(nonBlockingCIN().c_str());
@@ -559,12 +542,12 @@ private:
 			int x = 30;
 			int y = 8;
 
-
 			Graphics::coutV3(x, y++, "Username: ", YELLOW);
-			Graphics::coutV3(x, y++, "Password: ", YELLOW);
+			Graphics::coutV3(x, y++, "New Password: ", YELLOW);
 
 			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 10, y - 1); string pass = nonBlockingCIN();
+			Graphics::goToXY(x + 14, y - 1); string pass = nonBlockingCIN();
+
 			if (LoggedUser.changePassword(username, pass) == true) {
 				Graphics::coutV3(x, y += 4, "Password Changed", BLUE);
 			}
@@ -584,11 +567,11 @@ private:
 			int y = 8;
 
 			Graphics::coutV3(x, y++, "Username: ", YELLOW);
-			Graphics::coutV3(x, y++, "PIN", YELLOW);
+			Graphics::coutV3(x, y++, "New PIN: ", YELLOW);
 
 
 			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
-			Graphics::goToXY(x + 6, y - 1); string PIN = nonBlockingCIN();
+			Graphics::goToXY(x + 9, y - 1); string PIN = nonBlockingCIN();
 
 			if (LoggedUser.changePIN(username, atoi(PIN.c_str())) == true) {
 				Graphics::coutV3(x, y += 4, "PIN Changed", BLUE);
@@ -610,11 +593,9 @@ private:
 			Graphics::coutV3(x, y++, "Username: ", YELLOW);
 			Graphics::coutV3(x, y++, "Are you sure (Y/N): ", YELLOW);
 
-			Graphics::goToXY(x + 10, y - 2); 
-			string username = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y - 2); string username = nonBlockingCIN();
 
-			Graphics::goToXY(x + 20, y - 1); 
-			string confirm = nonBlockingCIN();
+			Graphics::goToXY(x + 20, y - 1); string confirm = nonBlockingCIN();
 
 
 			if (confirm[0] == 'Y' || confirm[0] == 'y') {
@@ -660,23 +641,15 @@ private:
 			int x = 30;
 			int y = 8;
 
-
 			Graphics::coutV3(x, y++, "Name: ", YELLOW);
 			Graphics::coutV3(x, y++, "Username: ", YELLOW);
-			Graphics::coutV3(x, y++, "Password ", YELLOW);
-			Graphics::coutV3(x, y++, "Role ", YELLOW);
+			Graphics::coutV3(x, y++, "Password: ", YELLOW);
+			Graphics::coutV3(x, y++, "Role: ", YELLOW);
 
-			Graphics::goToXY(x + 7, y - 4); 
-			newUser.name = nonBlockingCIN();
-
-			Graphics::goToXY(x + 11, y - 3); 
-			newUser.username = nonBlockingCIN();
-
-			Graphics::goToXY(x + 11, y - 2); 
-			newUser.password = nonBlockingCIN(true);
-
-			Graphics::goToXY(x + 7, y - 1); 
-			newUser.role = atoi(nonBlockingCIN(true).c_str());
+			Graphics::goToXY(x + 6, y - 4); newUser.name = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y - 3); newUser.username = nonBlockingCIN();
+			Graphics::goToXY(x + 10, y - 2); newUser.password = nonBlockingCIN(true);
+			Graphics::goToXY(x + 6, y - 1); newUser.role = atoi(nonBlockingCIN(true).c_str());
 
 			if (newUser.role < 1 && newUser.role > 3) {
 				newUser.role = 1;
