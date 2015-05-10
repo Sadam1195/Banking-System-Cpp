@@ -148,10 +148,7 @@ public:
 		string tag, info;
 		streamoff position = 0;
 		while (userFile >> tag >> info) {
-			//cout << tag << " " << info << " " << value << endl;
-
 			if (tag == key) {
-				cout << tag << " " << info << " " << value << endl;
 				userFile.seekp(static_cast<int>(position));
 				userFile << repeatCh(' ', info.size());
 				userFile.seekp(static_cast<int>(position));
@@ -305,7 +302,7 @@ public:
 		}
 
 		// Adding data to file
-		infoFileWriteStream << user.username << " "
+		infoFileWriteStream << "\n" << user.username << " "
 			<< user.password << " "
 			<< user.pin << " "
 			<< user.role << " "

@@ -380,10 +380,9 @@ private:
 			Graphics::coutV3(x, y++, "Reciever Name: ", YELLOW);
 			Graphics::coutV3(x, y++, "Amount: ", YELLOW);
 
-
 			while (true)
 			{
-				Graphics::goToXY(45, 8);
+				Graphics::goToXY(45, y-2);
 				Reciver_Name = nonBlockingCIN();
 				if (Reciver_Name == "") return;
 
@@ -397,22 +396,23 @@ private:
 			}
 
 			string dummy;
-			Graphics::goToXY(38, 10);
+			Graphics::goToXY(38, y-1);
 			dummy = nonBlockingCIN();
 			if (dummy == "") return;
 			Amount_Sended = atoi(dummy.c_str());
 
-			double Sender_Bal = LoggedUser.getBalance(LoggedUser.currentUser.username);
+			double Sender_Bal = LoggedUser.getBalance(username);
 
 			if (Amount_Sended <= Sender_Bal)
 			{
-				LoggedUser.addBalance(LoggedUser.currentUser.username, -1 * Amount_Sended);
+				LoggedUser.addBalance(username, -1 * Amount_Sended);
 				LoggedUser.addBalance(Reciver_Name, Amount_Sended);
 				Graphics::coutV3(x, y += 4, "Money Successfully Transfered!!!", BLUE);
 			}
 			else
 			{
-				Graphics::coutV3(x, y += 4, "Money Over-flow!!!", RED);
+				
+				Graphics::coutV3(x, y += 4, "Money Over-flow!!! ", RED);
 			}
 		}
 		catch (int e) {
@@ -430,7 +430,7 @@ private:
 			int y = 8;
 			Graphics::coutV3(x, y, "Enter new password: ", YELLOW);
 
-			Graphics::goToXY(x + 18,y);
+			Graphics::goToXY(x + 20,y);
 			new_pass = nonBlockingCIN(true);
 			LoggedUser.changePassword(LoggedUser.currentUser.username, new_pass);
 
@@ -647,8 +647,8 @@ private:
 
 			Graphics::goToXY(x + 6, y - 4); newUser.name = nonBlockingCIN();
 			Graphics::goToXY(x + 10, y - 3); newUser.username = nonBlockingCIN();
-			Graphics::goToXY(x + 10, y - 2); newUser.password = nonBlockingCIN(true);
-			Graphics::goToXY(x + 6, y - 1); newUser.role = atoi(nonBlockingCIN(true).c_str());
+			Graphics::goToXY(x + 10, y - 2); newUser.password = nonBlockingCIN(false);
+			Graphics::goToXY(x + 6, y - 1); newUser.role = atoi(nonBlockingCIN().c_str());
 
 			if (newUser.role < 1 && newUser.role > 3) {
 				newUser.role = 1;

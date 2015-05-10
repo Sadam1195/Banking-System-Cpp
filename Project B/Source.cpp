@@ -3,8 +3,6 @@
 #include <stdio.h>    
 #include <string>     // to_string()
 
-#include "FileLogger.cpp"
-
 #include "Login_UI.cpp"
 #include "ATM_UI.cpp"
 #include "Graphics.cpp"
@@ -15,12 +13,6 @@ int main()
 {
 	// Set Screen Size
 	system("MODE CON COLS=80 LINES=33");
-
-	ige::FileLogger myLog("1.0.4.2", "testfile.txt");
-	myLog << "Initiated";
-	myLog << ige::FileLogger::e_logType::LOG_WARNING << "Hey! ... This is a warning message!";
-	myLog << ige::FileLogger::e_logType::LOG_ERROR << "WOW! Something really wrong is happening here!";
-	myLog << "This is just a simple text";
 
 	Graphics::SetColor(YELLOW);
 	cout
