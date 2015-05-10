@@ -1,3 +1,6 @@
+#ifndef ATM_UI_CPP
+#define ATM_UI_CPP
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -266,3 +269,5 @@ public:
 		}
 	}
 };
+
+#endif
