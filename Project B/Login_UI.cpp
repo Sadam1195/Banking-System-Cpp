@@ -70,7 +70,7 @@ private:
 
 			Graphics::coutV3(35, 10, "                  ");
 			Graphics::coutV3(35, 11, "                  ");
-			Graphics::coutV3(31, 12, "                  ");
+			Graphics::coutV3(35, 17, "                  ");
 
 			Graphics::goToXY(35, 10);
 			username = userInput(1);
@@ -223,7 +223,7 @@ private:
 			Graphics::coutV2("-------------------\n\n", DARKGREEN);
 			Graphics::coutV2(" Hello,           "); Graphics::coutV2("|\n", GREEN);
 			Graphics::coutV2("-------------------\n\n", DARKGREEN);
-			Graphics::coutV2(" Information      ", GRAY); Graphics::coutV2("|\n", GREEN);
+			Graphics::coutV2(" Information      ", GRAY); Graphics::coutV2("| \n", GREEN);
 			Graphics::coutV2("-------------------\n\n", DARKGREEN);
 			Graphics::coutV2(" Transfer Money   ", GRAY); Graphics::coutV2("|\n", GREEN);
 			Graphics::coutV2("-------------------\n\n", DARKGREEN);
@@ -238,6 +238,7 @@ private:
 			Graphics::coutV2("                  |\n\n\n", GREEN);
 			Graphics::coutV2("                  |\n\n\n", GREEN);
 		}
+			
 		if (LoggedUser.currentUser.role == 2) { //ACCOUNTANT
 			optionsCount = 4;
 
@@ -292,9 +293,7 @@ private:
 		int x = 18;
 		int y = 5;
 
-		Graphics::coutV3(x, y, "Enter new password: ", YELLOW);
 		Graphics::goToXY(18, y);
-
 		Graphics::coutColored(GREEN,"X\b");
 
 		getFunction(count);
