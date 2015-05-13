@@ -70,7 +70,7 @@ private:
 
 			Graphics::coutV3(35, 10, "                  ");
 			Graphics::coutV3(35, 11, "                  ");
-			Graphics::coutV3(35, 17, "                  ");
+			Graphics::coutV3(31, 17, "                  ");
 
 			Graphics::goToXY(35, 10);
 			username = userInput(1);
@@ -105,111 +105,98 @@ private:
 	}
 
 	void getFunction(int funcID) {
-		try {
-			clearShowScreen();
-			if (LoggedUser.currentUser.role == 1) { // USER
-				switch (funcID) {
-				case 0:
-					Information();
-					break;
-				case 1:
-					Transfer_Money();
-					break;
-				case 2:
-					Change_Password();
-					break;
-				case 3:
-					Change_PIN();
-					break;
-				case 4:
-					Log_Out();
-					break;
-				}
-			}
-
-			if (LoggedUser.currentUser.role == 2) { // ACCOUNTANT
-				switch (funcID) {
-				case 0:
-					Information();
-					break;
-				case 1:
-					Add_Money();
-					break;
-				case 2:
-					Add_User();
-					break;
-				case 3:
-					Change_Password();
-					break;
-				case 4:
-					Log_Out();
-					break;
-				}
-			}
-
-			if (LoggedUser.currentUser.role == 3) { // MANAGER
-				switch (funcID) {
-				case 0:
-					Information();
-					break;
-				case 1:
-					Add_Money();
-					break;
-				case 2:
-					Add_User();
-					break;
-				case 3:
-					Delete_Account();
-					break;
-				case 4:
-					Unblock_ATM();
-					break;
-				case 5:
-					Change_User_Password();
-					break;
-				case 6:
-					Change_User_PIN();
-					break;
-				case 7:
-					Change_Password();
-					break;
-				case 8:
-					Log_Out();
-					break;
-				}
+		clearShowScreen();
+		if (LoggedUser.currentUser.role == 1) { // USER
+			switch (funcID) {
+			case 0:
+				Information();
+				break;
+			case 1:
+				Transfer_Money();
+				break;
+			case 2:
+				Change_Password();
+			break;
+			case 3:
+				Change_PIN();
+				break;
+			case 4:
+				Log_Out();
+				break;
 			}
 		}
-		catch (int e) {
-			throw e;
+		if (LoggedUser.currentUser.role == 2) { // ACCOUNTANT
+			switch (funcID) {
+			case 0:
+				Information();
+				break;
+			case 1:
+				Add_Money();
+				break;
+			case 2:
+				Add_User();
+				break;
+			case 3:
+				Change_Password();
+				break;
+			case 4:
+				Log_Out();
+				break;
+			}
 		}
-	}
+		if (LoggedUser.currentUser.role == 3) { // MANAGER
+			switch (funcID) {
+			case 0:
+				Information();
+				break;
+			case 1:
+				Add_Money();
+				break;
+			case 2:
+				Add_User();
+				break;
+			case 3:
+				Delete_Account();
+				break;
+			case 4:
+				Unblock_ATM();
+				break;
+			case 5:
+				Change_User_Password();
+				break;
+			case 6:
+				Change_User_PIN();
+				break;
+			case 7:
+				Change_Password();
+				break;
+			case 8:
+				Log_Out();
+				break;
+			}
+		}
+}
 
 	string nonBlockingCIN(bool show = true, bool hide = false) {
-		try {
-			string text = "";
-			char ch;
-			Graphics::goToXY(Graphics::whereX(), Graphics::whereY());
-			while (ch = _getch())
-			{
-	
-				if (ch == 80)		throw 1;
-				if (ch == 72)		throw 2;
-				else if (ch == 13)  return text;
-				else {
-					if (ch != -32) {
-						if (hide)
-							cout << (char)ch;
-						else if (show)
-							cout << (char)ch;
-						else
-							cout << "*";
-						text.push_back(ch);
-					}
+		string text = "";
+		char ch;
+		Graphics::goToXY(Graphics::whereX(), Graphics::whereY());
+		while (ch = _getch())
+		{
+			if (ch == 80)		throw 1;
+			if (ch == 72)		throw 2;
+			else if (ch == 13)  return text;
+			else {
+				if (ch != -32) {
+					if (hide)
+						cout << (char)ch;
+					else if (show)
+						cout << (char)ch;
+					else
+						cout << "*";
+					text.push_back(ch);
 				}
 			}
-		}
-		catch (int e){
-			throw e;
 		}
 
 		return ""; //removing warning
