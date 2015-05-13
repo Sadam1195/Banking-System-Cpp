@@ -261,8 +261,8 @@ public:
 			}
 
 			if (failAttempts == 3) {
+				branch.unlockATM(branch.currentUser.username, 1);
 				if (accountBlocked() == false) {
-					branch.unlockATM(branch.currentUser.username, 1);
 					return;
 				}
 			}
