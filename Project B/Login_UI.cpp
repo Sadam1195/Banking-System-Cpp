@@ -97,8 +97,6 @@ private:
 
 			if (LoggedUser.login(username, password, role))
 			{
-				cout << "Logged";
-				Sleep(3000);
 				return true;
 			}
 		}
