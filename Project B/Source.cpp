@@ -26,11 +26,8 @@ int main()
 	
 	Graphics::SetColor(GREEN);
 	cout << "\t\t\t\t\t\t    By Owais (P14-6011) " << endl
-		 << "\t\t\t\t\t\t       Zerk (P14-6012)" << endl;
+		 << "\t\t\t\t\t\t       Zerk  (P14-6012)" << endl;
 	
-	
-
-
 	Graphics::SetColor(DARKTEAL);
 	Graphics::goToXY(30,15);
 	cout << "ATM";
@@ -73,101 +70,6 @@ int main()
 			break;
 		}
 	}
-
-	/*
-	Bank branch;
-	userDetail user;
-
-	user.name = "Syed Owais Ali Chishti";
-	user.username = "owais";
-	user.password = "pass";
-	user.pin = Bank::randomPIN();
-	user.role = 1;
-	user.atmBlocked = 0;
-
-
-	if (branch.addUser(user) == true)// if return false mean user already exist with that username
-	{
-		cout << "User Added";
-	}
-	
-	user.name = "Zerk Shaban";
-	user.username = "zerk";
-	user.password = "pass";
-	user.pin = Bank::randomPIN();
-	user.role = 1;
-	user.atmBlocked = 0;
-
-
-	if (branch.addUser(user) == true)// if return false mean user already exist with that username
-	{
-		cout << "User Added";
-	}
-	*/
-	
-	//Registration
-	
-	/*
-	Bank branch;
-	userDetail user;
-
-	user.name = "Syed Owais Ali Chishti";
-	user.username = "owais";
-	user.password = "pass";
-	user.pin = Bank::randomPIN();
-	user.role = 1;
-	user.atmBlocked = 0;
-
-	
-	if(branch.addUser(user) == true)// if return false mean user already exist with that username
-	{
-	cout << "User Added";
-	}
-	*/
-
-	// Registration
-	//Bank branch;
-	//userDetail user;
-
-	//user.name = "Syed Owais Ali Chishti";
-	//user.username = "owais";
-	//user.password = "pass";
-	//user.pin = Bank::randomPIN();
-	//user.role = 1;
-	//user.atmBlocked = 0;
-
-	/*
-	if(branch.addUser(user) == true)// if return false mean user already exist with that username
-	{
-	cout << "User Added";
-	}
-	else {
-	cout << "Unable to add user.";
-	}
-	*/
-
-	/*
-	// Login
-	if (branch.login("owais", "pass", 1)) {
-	cout << "Logged in";
-	}
-	else {
-	cout << "Sorry!!! unable to log in.";
-	}
-	*/
-
-
-	//logout();
-	//cout << branch.isLogged();
-	//cout << branch.user.name;
-
-	//cout << branch.creationData();
-
-	//string username = "owais";
-	//branch.addBalance(username, -500);
-	//cout << branch.getBalance(username);
-	//branch.deleteUser(username);
-
 
 	system("pause");
 	return 0;

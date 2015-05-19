@@ -17,7 +17,7 @@ private:
 	string username, password;
 	int role;
 	Bank LoggedUser;
-	
+
 	void setTitle(string title) {
 		Graphics::coutV3(30, 1, title, DARKYELLOW);
 	}
@@ -60,12 +60,14 @@ private:
 			Graphics::coutV3(25, 11, "Password: ", YELLOW);
 
 			Graphics::coutV3(25, 13, "~ OPTIONS ~", PINK);
-			Graphics::coutV3(25, 14, " 1) User" , GRAY);
+			Graphics::coutV3(25, 14, " 1) User", GRAY);
 			Graphics::coutV3(25, 15, " 2) Accountant", GRAY);
 			Graphics::coutV3(25, 16, " 3) Manager", GRAY);
 			Graphics::coutV3(25, 17, "Role: ", YELLOW);
-
-			Graphics::coutV3(20, 19, "------------------------------------", TEAL);
+			Graphics::coutV3(25, 18, "                       --------    ", WHITE);
+			Graphics::coutV3(25, 19, "                        SUBMIT     ", WHITE);
+			Graphics::coutV3(25, 20, "                       --------    ", WHITE);
+			Graphics::coutV3(20, 21, "------------------------------------", TEAL);
 
 
 			Graphics::coutV3(35, 10, "                  ");
@@ -81,10 +83,22 @@ private:
 			Graphics::goToXY(31, 17);
 			role = atoi(userInput(3).c_str());
 
-			Graphics::goToXY(35, 15);
+			Graphics::goToXY(0, 0);
+
+			POINT up = { 385, 258 },
+				down = { 446, 286 };
+
+			while (true) {
+				//if ((GetKeyState(VK_LBUTTON) & 0x80) != 0) {
+					if (Graphics::positionClicked(up, down)) break;
+					Sleep(100);
+				//}
+			}
 
 			if (LoggedUser.login(username, password, role))
 			{
+				cout << "Logged";
+				Sleep(3000);
 				return true;
 			}
 		}
@@ -101,7 +115,7 @@ private:
 			cout << empty;
 		}
 
-		Graphics::coutV3(45, 30, "Copyright (C) 2015 | Zerk & Owais" , DARKTEAL);
+		Graphics::coutV3(45, 30, "Copyright (C) 2015 | Zerk & Owais", DARKTEAL);
 	}
 
 	void getFunction(int funcID) {
@@ -116,7 +130,7 @@ private:
 				break;
 			case 2:
 				Change_Password();
-			break;
+				break;
 			case 3:
 				Change_PIN();
 				break;
@@ -175,7 +189,7 @@ private:
 				break;
 			}
 		}
-}
+	}
 
 	string nonBlockingCIN(bool show = true, bool hide = false) {
 		string text = "";
@@ -225,7 +239,7 @@ private:
 			Graphics::coutV2("                  |\n\n\n", GREEN);
 			Graphics::coutV2("                  |\n\n\n", GREEN);
 		}
-			
+
 		if (LoggedUser.currentUser.role == 2) { //ACCOUNTANT
 			optionsCount = 4;
 
@@ -281,7 +295,7 @@ private:
 		int y = 5;
 
 		Graphics::goToXY(18, y);
-		Graphics::coutColored(GREEN,"X\b");
+		Graphics::coutColored(GREEN, "X\b");
 
 		getFunction(count);
 
@@ -332,11 +346,11 @@ private:
 
 		Graphics::coutV3(45, 9, LoggedUser.creationData());
 
-	
+
 		if (LoggedUser.currentUser.role == 1)
 		{
 			Graphics::coutV3(x, y, "Balance: ", YELLOW);
-			Graphics::coutV3(x+10, y++, to_string(LoggedUser.getBalance(username)));
+			Graphics::coutV3(x + 10, y++, to_string(LoggedUser.getBalance(username)));
 			Graphics::coutV3(x, y++, "Status:", YELLOW);
 			Graphics::coutV3(x + 9, 11, "User");
 
@@ -369,7 +383,7 @@ private:
 
 			while (true)
 			{
-				Graphics::goToXY(45, y-2);
+				Graphics::goToXY(45, y - 2);
 				Reciver_Name = nonBlockingCIN();
 				if (Reciver_Name == "") return;
 
@@ -383,7 +397,7 @@ private:
 			}
 
 			string dummy;
-			Graphics::goToXY(38, y-1);
+			Graphics::goToXY(38, y - 1);
 			dummy = nonBlockingCIN();
 			if (dummy == "") return;
 			Amount_Sended = atoi(dummy.c_str());
@@ -398,14 +412,14 @@ private:
 			}
 			else
 			{
-				
+
 				Graphics::coutV3(x, y += 4, "Money Over-flow!!! ", RED);
 			}
 		}
 		catch (int e) {
 			throw e;
 		}
-		
+
 	}
 
 	void Change_Password()
@@ -417,14 +431,14 @@ private:
 			int y = 8;
 			Graphics::coutV3(x, y, "Enter new password: ", YELLOW);
 
-			Graphics::goToXY(x + 20,y);
+			Graphics::goToXY(x + 20, y);
 			new_pass = nonBlockingCIN(true);
 			LoggedUser.changePassword(LoggedUser.currentUser.username, new_pass);
 
 			Graphics::coutV3(x, y += 4, "Password Changed.", BLUE);
 
 		}
-	
+
 		catch (int e) {
 			throw e;
 		}
@@ -444,7 +458,7 @@ private:
 			new_pin = nonBlockingCIN(true);
 			if (new_pin == "") return;
 
-			LoggedUser.changePIN( LoggedUser.currentUser.username,atoi(new_pin.c_str()));
+			LoggedUser.changePIN(LoggedUser.currentUser.username, atoi(new_pin.c_str()));
 
 			Graphics::coutV3(x, y += 4, "PIN Changed!!!", BLUE);
 		}
@@ -453,7 +467,7 @@ private:
 		}
 
 	}
-	 
+
 	void Log_Out()
 	{
 		try {
@@ -463,8 +477,8 @@ private:
 			int y = 8;
 			Graphics::coutV3(x, y, "Do you want to Log Out - Press Enter", YELLOW);
 
-			dummy = nonBlockingCIN(true,true);
-		
+			dummy = nonBlockingCIN(true, true);
+
 			if (dummy == "")
 			{
 				LoggedUser.logout();

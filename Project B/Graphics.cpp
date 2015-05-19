@@ -28,7 +28,7 @@ public:
 		COORD coord = { x, y };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	}
-	
+
 	static int whereX() {
 		CONSOLE_SCREEN_BUFFER_INFO consoleinfo;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleinfo);
@@ -52,13 +52,46 @@ public:
 	}
 
 	static void coutV3(int x, int y, string str, Color c = WHITE) {
-		goToXY(x,y);
+		goToXY(x, y);
 		SetColor(c);
 		cout << str;
 		SetColor(WHITE);
 		goToXY(0, 0);
 	}
-};
 
+
+	static HWND GetConsoleHwnd(void)
+	{
+		//@Link: https://support.microsoft.com/en-us/kb/124103
+		const int  MY_BUFSIZE = 256;
+		HWND hwndFound;
+		//char pszNewWindowTitle[MY_BUFSIZE];
+		char pszOldWindowTitle[MY_BUFSIZE];
+
+		GetConsoleTitleA(pszOldWindowTitle, MY_BUFSIZE);
+
+		//wsprintfA(pszNewWindowTitle, "%d/%d",
+		//	GetTickCount(),
+		//	GetCurrentProcessId());
+
+		//SetConsoleTitleA(pszNewWindowTitle);
+		//Sleep(40);
+		//hwndFound = FindWindowA(NULL, pszNewWindowTitle);
+		hwndFound = FindWindowA(NULL, pszOldWindowTitle);
+
+		//SetConsoleTitleA(pszOldWindowTitle);
+		return hwndFound;
+	}
+
+	static bool positionClicked(POINT one, POINT two) {
+		POINT p;
+		GetCursorPos(&p);
+		ScreenToClient(GetConsoleHwnd(), &p);
+
+		if (p.x >= one.x && p.x <= two.x && p.y >= one.y && p.y <= two.y)
+			return true;
+		return false;
+	}
+};
 
 #endif

@@ -282,7 +282,7 @@ public:
 			>> userData.atmBlocked
 			)
 		{
-			if (userData.username == username && userData.pin == atoi(pin.c_str())) {
+			if (userData.username == username && userData.pin == atoi(pin.c_str()) && userData.role == role) {
 				flag = true;
 				currentUser = userData; // Login user
 				currentUser.name = replaceWith(getValueByKey(username, "NAME"), '_', ' ');
