@@ -89,9 +89,10 @@ private:
 				down = { 446, 286 };
 
 			while (true) {
+			//while (GetAsyncKeyState(VK_RETURN) != 0) {
 				//if ((GetKeyState(VK_LBUTTON) & 0x80) != 0) {
 					if (Graphics::positionClicked(up, down)) break;
-					Sleep(100);
+					Sleep(10);
 				//}
 			}
 
@@ -195,8 +196,9 @@ private:
 		Graphics::goToXY(Graphics::whereX(), Graphics::whereY());
 		while (ch = _getch())
 		{
-			if (ch == 80)		throw 1;
-			if (ch == 72)		throw 2;
+			if (ch == 80)			throw 1;
+			else if (ch == 72)		throw 2;
+			else if (ch == 9)		throw 3;
 			else if (ch == 13)  return text;
 			else {
 				if (ch != -32) {
@@ -295,35 +297,57 @@ private:
 		Graphics::goToXY(18, y);
 		Graphics::coutColored(GREEN, "X\b");
 
-		getFunction(count);
-
-		char ch;
-		ch = getch();
+		char ch = 0;
 		while (true) {
 			try {
 				if (ch == 80 && count < optionsCount) { // DOWN
 					Graphics::goToXY(18, y);
 					cout << "|";
-					Graphics::goToXY(18, y += 3);
-					Graphics::coutColored(GREEN, "X\b");
+					y += 3;
 					count++;
-					getFunction(count);
-
 				}
 				if (ch == 72 && count != 0) { // UP
 					Graphics::goToXY(18, y);
 					cout << "|";
-					Graphics::goToXY(18, y -= 3);
-					Graphics::coutColored(GREEN, "X\b");
+					y -= 3;
 					count--;
-					getFunction(count);
+				}
+				if (ch == 9){
+					POINT c[100][2] = {
+						{ { 0, 50 }, { 150, 90 } },
+						{ { 0, 90 }, { 150, 130 } },
+						{ { 0, 130 }, { 150, 170 } },
+						{ { 0, 170 }, { 150, 210 } },
+						{ { 0, 210 }, { 150, 250 } },
+						{ { 0, 250 }, { 150, 290 } },
+						{ { 0, 290 }, { 150, 330 } },
+						{ { 0, 330 }, { 150, 370 } },
+						{ { 0, 370 }, { 150, 410 } }
+					};
+
+					for (int i = 0; i <= optionsCount; i++) {
+						if (Graphics::positionClicked(c[i][0], c[i][1])) {
+							count = i;
+							Graphics::goToXY(18, y);
+							cout << "|";
+							y = 5 + (i * 3);
+							break;
+						}
+						Sleep(100);
+						if (i == optionsCount) i = 0;
+					}
 				}
 
+				Graphics::goToXY(18, y);
+				Graphics::coutColored(GREEN, "X\b");
+
+				getFunction(count);
 				ch = getch();
 			}
 			catch (int e) {
 				if (e == 1) ch = 80;
-				if (e == 2) ch = 72;
+				else if (e == 2) ch = 72;
+				else if (e == 3) ch = 9;
 			}
 		}
 		_getch();
@@ -363,7 +387,7 @@ private:
 			Graphics::coutV3(x, y, "Status: ", YELLOW);
 			Graphics::coutV3(x + 9, 10, "Manager");
 		}
-		_getch();
+		nonBlockingCIN(true,true);
 	}
 
 	void Transfer_Money()
@@ -491,7 +515,6 @@ private:
 
 	void unlockATM()
 	{
-		try {
 			setTitle("!!! UNLOCK ATM !!!");
 			string new_pass;
 			int x = 30;
@@ -504,14 +527,9 @@ private:
 			LoggedUser.unlockATM(LoggedUser.currentUser.username, 0);
 
 			Graphics::coutV3(x, y += 4, username + " atm unlocked.", BLUE);
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 	void Add_Money() {
-		try {
 			setTitle("!!! ADD MONEY !!!");
 			int x = 30;
 			int y = 8;
@@ -528,14 +546,9 @@ private:
 			else {
 				Graphics::coutV3(x, y += 4, "Failed to add money.", RED);
 			}
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 	void Change_User_Password() {
-		try{
 			setTitle("!!! CHANGE USER PASSWORD !!!");
 			int x = 30;
 			int y = 8;
@@ -552,14 +565,9 @@ private:
 			else {
 				Graphics::coutV3(x, y += 4, "Failed to change password.", BLUE);
 			}
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 	void Change_User_PIN() {
-		try {
 			setTitle("!!! CHANGE USER PIN !!!");
 			int x = 30;
 			int y = 8;
@@ -577,14 +585,9 @@ private:
 			else {
 				Graphics::coutV3(x, y += 4, "Failed to change PIN.", RED);
 			}
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 	void Delete_Account() {
-		try {
 			setTitle("!!! DELETE ACCOUNT !!!");
 			int x = 30;
 			int y = 8;
@@ -603,14 +606,9 @@ private:
 			else {
 				Graphics::coutV3(x, y += 4, "Fail to remove user.", RED);
 			}
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 	void Unblock_ATM() {
-		try {
 			setTitle("!!! UNLOCK ATM !!!");
 			int x = 30;
 			int y = 8;
@@ -625,14 +623,9 @@ private:
 				Graphics::coutV3(x, y += 4, "User ATM unlocked.", RED);
 
 			}
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 	void Add_User() {
-		try {
 			setTitle("!!! ADD USER !!!");
 			userDetail newUser;
 
@@ -664,10 +657,6 @@ private:
 			else {
 				Graphics::coutV3(x, y + 4, "User Already Exist", RED);
 			}
-		}
-		catch (int e) {
-			throw e;
-		}
 	}
 
 public:
@@ -677,8 +666,6 @@ public:
 		if (login()) {
 			Graphics::cls();
 			menu();
-			//Information();
-			//Transfer_Money();
 		}
 	}
 };
