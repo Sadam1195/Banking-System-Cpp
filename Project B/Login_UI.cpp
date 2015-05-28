@@ -4,6 +4,7 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+#include <iomanip>
 #include <string>
 #include "Graphics.cpp"
 #include "Bank.cpp"
@@ -372,7 +373,7 @@ private:
 		if (LoggedUser.currentUser.role == 1)
 		{
 			coutV3(x, y, "Balance: ", YELLOW);
-			coutV3(x + 10, y++, to_string(LoggedUser.getBalance(username)));
+			coutV3(x + 10, y++, to_string_precision(LoggedUser.getBalance(username)));
 			coutV3(x, y++, "Status:", YELLOW);
 			coutV3(x + 9, 11, "User");
 
@@ -652,7 +653,8 @@ private:
 			if (LoggedUser.addUser(newUser) == true)// if return false mean user already exist with that username
 			{
 				coutV3(x, y + 4, "User Added", BLUE);
-				coutV3(x, y + 5, "User ATM PIN is " + newUser.pin, BLUE);
+				coutV3(x, y + 5, "ATM PIN is " + to_string(newUser.pin), BLUE);
+
 			}
 			else {
 				coutV3(x, y + 4, "User Already Exist", RED);

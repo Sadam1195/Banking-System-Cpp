@@ -3,8 +3,12 @@
 
 #include <iostream>
 #include <string>     // to_string()
+#include <sstream>
+#include <iomanip>
 #include <ctime>      // time()
 #include <fstream>    // ofstream
+
+#include "Graphics.cpp"
 
 #pragma warning(disable : 4996)
 
@@ -22,7 +26,7 @@ struct userDetail {
 /*
 Use camelCase in naming functions
 */
-class Bank
+class Bank : public Graphics
 {
 public:
 	userDetail user;
@@ -150,8 +154,9 @@ public:
 		while (userFile >> tag >> info) {
 			if (tag == key) {
 				userFile.seekp(static_cast<int>(position));
-				userFile << repeatCh(' ', info.size());
+				userFile << repeatCh(' ', info.size()+2); // Delete Previous Data
 				userFile.seekp(static_cast<int>(position));
+
 				userFile << endl << key << " " << value << endl;
 				break;
 			}
@@ -181,7 +186,8 @@ public:
 	}
 
 	bool addBalance(string username, double amount) {
-		string balance = to_string(getBalance(username) + amount);
+		double finalAmount = getBalance(username) + amount;
+		string balance = to_string_precision(finalAmount);
 		modifyKeyValue(username, "BAL", balance);
 		return true;
 	}

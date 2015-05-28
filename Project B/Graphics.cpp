@@ -3,6 +3,8 @@
 
 #include <windows.h>
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include <string.h>
 #include <iostream>
 using namespace std;
@@ -91,6 +93,14 @@ public:
 		if (p.x >= one.x && p.x <= two.x && p.y >= one.y && p.y <= two.y)
 			return true;
 		return false;
+	}
+
+	string to_string_precision(double a_value, const int n = 2)
+	{
+		stringstream stream;
+		stream << fixed << setprecision(n) << a_value;
+		string s = stream.str();
+		return s;
 	}
 };
 
