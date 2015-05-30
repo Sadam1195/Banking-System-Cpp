@@ -162,22 +162,22 @@ private:
 				Information();
 				break;
 			case 1:
-				//Add_Money();
+				Add_Money();
 				break;
 			case 2:
 				//Add_User();
 				break;
 			case 3:
-				//Freeze_Account(); //Delete Account
+				//Delete_Account(); //Delete Account
 				break;
 			case 4:
-				//Unbloc_ATM(); //Delete Account
+				//Unblock_ATM(); //Delete Account
 				break;
 			case 5:
-				//Change_User_Password();
+				Change_User_Password();
 				break;
 			case 6:
-				//Change_User_PIN();
+				Change_User_PIN();
 				break;
 			case 7:
 				Change_Password();
@@ -187,9 +187,36 @@ private:
 				break;
 			}
 		}
-
+		
+	}
+	void Add_User()
+	{
+		LoggedUser.addUser();
+	}
+	void Add_Money()
+	{
+		int money;
+		cout << "\t\tPlease,Enter the Amount of money:" << endl;
+		cin >> money;
 	}
 
+	void Change_User_Password()
+	{
+		string username, password;
+		cout << "Username: ";
+		cout << "Password: ";
+		Graphics::goToXY(15, 40);
+		username = nonBlockingCIN();
+		password = nonBlockingCIN(true);
+
+		LoggedUser.changePassword(username,password);
+
+	}
+	void Change_User_PIN()
+	{
+		
+
+	}
 	string nonBlockingCIN(bool show = true) {
 		string text;
 		char ch;
