@@ -1,3 +1,6 @@
+#ifndef ATM_UI_CPP
+#define ATM_UI_CPP
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -11,7 +14,7 @@
 
 using namespace std;
 
-class atmUI {
+class atmUI : private Graphics {
 private:
 	string getHiddenPIN() {
 		char ch;
@@ -30,62 +33,62 @@ private:
 	}
 
 	string getUsername() {
-		Graphics::cls();
+		cls();
 		string username;
 
-		cout << endl << endl << endl;
-		cout << setw(55) << " _________________________ " << endl;
-		cout << setw(55) << "/                         \\" << endl;
-		cout << setw(55) << "|  PROJECT B              |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|  1234 5672 1892 1728    |" << endl;
-		cout << setw(55) << "|  NAME:                  |" << endl;
-		cout << setw(55) << "|                    ---- |" << endl;
-		cout << setw(55) << "|  Valid: 1/15       VISA |" << endl;
-		cout << setw(55) << "|                    ---- |" << endl;
-		cout << setw(55) << "\\_________________________/" << endl;
+		cout << "\n\n\n";
+		cout << "\t\t\t"; coutV2(" _________________________\n");
+		cout << "\t\t\t"; coutV2("/                         \\\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("PROJECT B", TEAL); coutV2("             |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("1234 5672 1892 1728", GREEN); coutV2("   |\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("NAME:",YELLOW); coutV2("                 |\n");
+		cout << "\t\t\t"; coutV2("|                   ----  |\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("Valid: ", RED); coutV2("1 / 15"); coutV2("   VISA ", PINK); coutV2(" |\n");
+		cout << "\t\t\t"; coutV2("|                   ----  |\n");
+		cout << "\t\t\t"; coutV2("\\_________________________/\n");
 
-		Graphics::goToXY(37, 8);
+		goToXY(34, 8);
 		cin >> username;
 		return username;
 	}
 
 	string getPIN() {
-		Graphics::cls();
+		cls();
 		string PIN;
-		cout << endl << endl << endl;
-		cout << setw(55) << " _________________________ " << endl;
-		cout << setw(55) << "/                         \\" << endl;
-		cout << setw(55) << "|  PROJECT B              |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|      PIN:               |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "\\_________________________/" << endl;
+		
+		cout << "\n\n\n";
+		cout << "\t\t\t"; coutV2(" _________________________\n");
+		cout << "\t\t\t"; coutV2("/                         \\\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("PROJECT B", TEAL); coutV2("             |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|       "); coutV2("PIN:", YELLOW); coutV2("              |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");  
+		cout << "\t\t\t"; coutV2("\\_________________________/\n");
 
-		Graphics::goToXY(40, 8);
+		goToXY(37, 8);
 		PIN = getHiddenPIN();
 		return PIN;
 	}
 
 	float customAmount() {
-		Graphics::cls();
+		cls();
 		float amount = -1;
-		cout << endl << endl << endl;
-		cout << setw(55) << " _________________________ " << endl;
-		cout << setw(55) << "/                         \\" << endl;
-		cout << setw(55) << "|  PROJECT B              |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|   CUSTOM                |" << endl;
-		cout << setw(55) << "|   AMOUNT:               |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "\\_________________________/" << endl;
-
-		Graphics::goToXY(40, 8);
+		cout << "\n\n\n";
+		cout << "\t\t\t"; coutV2(" _________________________\n");
+		cout << "\t\t\t"; coutV2("/                         \\\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("PROJECT B", TEAL); coutV2("             |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|       "); coutV2("CUSTOM", YELLOW); coutV2("            |\n");
+		cout << "\t\t\t"; coutV2("|       "); coutV2("AMOUNT:", YELLOW); coutV2("           |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("\\_________________________/\n");
+		goToXY(40, 9);
 		while (amount < 0) {
 			cin >> amount;
 		}
@@ -94,52 +97,53 @@ private:
 	}
 
 	float Choice() {
-		Graphics::cls();
+		cls();
 		int x, y;
 
-		cout << endl << endl << endl;
-		cout << "\t\t\t _________________________ " << endl
-			<< "\t\t\t/                         \\" << endl
-			<< "\t\t\t| Select Amount            |" << endl
-			<< "\t\t\t|                          |" << endl
-			<< "\t\t\t|    1000 Rs Only          |" << endl
-			<< "\t\t\t|    2000 Rs Only          |" << endl
-			<< "\t\t\t|    3000 Rs Only          |" << endl
-			<< "\t\t\t|    5000 Rs Only          |" << endl
-			<< "\t\t\t|    Custom  Only          |" << endl
-			<< "\t\t\t\\_________________________/ " << endl;
-		int money[] = { 1000, 2000, 3000, 5000, -1 };
+		cout << "\n\n\n";
+		cout << "\t\t\t"; coutV2(" _________________________\n");
+		cout << "\t\t\t"; coutV2("/                         \\\n");
+		cout << "\t\t\t"; coutV2("| "); coutV2("PROJECT B", TEAL); cout << " - "; coutV2("Amount      |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|    "); coutV2("1000 Rs Only", YELLOW); coutV2("         |\n");
+		cout << "\t\t\t"; coutV2("|    "); coutV2("2000 Rs Only", YELLOW); coutV2("         |\n");
+		cout << "\t\t\t"; coutV2("|    "); coutV2("3000 Rs Only", YELLOW); coutV2("         |\n");
+		cout << "\t\t\t"; coutV2("|    "); coutV2("5000 Rs Only", YELLOW); coutV2("         |\n");
+		cout << "\t\t\t"; coutV2("|    "); coutV2("Custom  Only", YELLOW); coutV2("         |\n");
+		cout << "\t\t\t"; coutV2("\\_________________________/\n");
+
+
+		float money[] = { 1000, 2000, 3000, 5000, -1 };
 		int indicator = 0;
-		Graphics::goToXY(45, 7);
+		goToXY(45, 7);
 		cout << "X\b";
 
 		while (true)
 		{
 			int ch = _getch();
-			x = Graphics::whereX();
-			y = Graphics::whereY();
+			x = whereX();
+			y = whereY();
 			if (ch == 80 && indicator < 4) //DOWN
 			{
 				cout << " ";
 				indicator++;
-				Graphics::goToXY(x, y + 1);
+				goToXY(x, y + 1);
 				cout << "X\b";
 			}
 			if (ch == 72 && indicator != 0) //UP
 			{
 				cout << " ";
 				indicator--;
-				Graphics::goToXY(x, y - 1);
+				goToXY(x, y - 1);
 				cout << "X\b";
 			}
 			if (ch == 13)
 			{
-				int cash = money[indicator];
+				float cash = money[indicator];
 				if (cash == -1) {
 					cash = customAmount();
 				}
 				return cash;
-				break;
 			}
 		}
 	}
@@ -147,22 +151,20 @@ private:
 	bool transaction(string username, float deductBalance) {
 		Bank branch;
 
-		Graphics::cls();
-		cout << endl << endl << endl;
-		cout << setw(55) << " _________________________ " << endl;
-		cout << setw(55) << "/                         \\" << endl;
-		cout << setw(55) << "|  PROJECT B              |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		Graphics::SetColor(BLUE);
-		cout << setw(55) << "|      Transaction        |" << endl;
-		Graphics::SetColor(WHITE);
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "\\________________________/" << endl;
+		cls();
+		cout << "\n\n\n";
+		cout << "\t\t\t"; coutV2(" _________________________\n");
+		cout << "\t\t\t"; coutV2("/                         \\\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("PROJECT B", TEAL); coutV2("             |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|      "); coutV2("TRANSACTION", TEAL); coutV2("        |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("\\_________________________/\n");
 
-		Graphics::goToXY(46, 8);
+		goToXY(42, 8);
 		cout << ".";
 		Sleep(1000);
 		cout << ".";
@@ -171,23 +173,23 @@ private:
 		Sleep(1000);
 		cout << ".";
 
-		Graphics::goToXY(35, 8);
-		cout << "               ";
-		Graphics::goToXY(30, 8);
+		coutV3(35, 8, "               ");
+		goToXY(30, 8);
 
-		float balance = branch.getBalance(username);
+		double balance = branch.getBalance(username);
 		if (deductBalance <= balance) {
-			branch.addBalance(username, -1 * balance);
-			cout << "TRANSACTION COMPLETED!!!";
+			branch.addBalance(username, -1.0 * balance);
+			coutV2("TRANSACTION COMPLETED!!!", PINK);
+
 		}
 		else
 		{
-			cout << "MONEY OVERFLOW!!!";
+			coutV2("MONEY OVERFLOW!!!", RED);
 		}
 
-		Graphics::goToXY(31, 11);
+		goToXY(27, 11);
 		char choice;
-		cout << "Want another (Y/N)? ";
+		coutV2("Want another (Y/N)? ", DARKYELLOW);
 		cin.clear();
 		cin >> choice;
 		Sleep(500);
@@ -195,22 +197,20 @@ private:
 	}
 
 	bool accountBlocked() {
-		Graphics::cls();
-		cout << endl << endl << endl;
-		cout << setw(55) << " _________________________ " << endl;
-		cout << setw(55) << "/                         \\" << endl;
-		cout << setw(55) << "|  PROJECT B              |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		Graphics::SetColor(RED);
-		cout << setw(55) << "| ~~~ ACCOUNT BLOCKED ~~~ |" << endl;
-		Graphics::SetColor(WHITE);
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "|                         |" << endl;
-		cout << setw(55) << "\\_________________________/" << endl;
+		cls();
+		cout << "\n\n\n";
+		cout << "\t\t\t"; coutV2(" _________________________\n");
+		cout << "\t\t\t"; coutV2("/                         \\\n");
+		cout << "\t\t\t"; coutV2("|   "); coutV2("PROJECT B", TEAL); coutV2("             |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|       "); coutV2("~~ ACCOUNT BLOCKED ~~", RED); coutV2("              |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("|                         |\n");
+		cout << "\t\t\t"; coutV2("\\_________________________/\n");
 
-		Graphics::goToXY(31, 11);
+		goToXY(31, 11);
 		char choice;
 		cout << "Want another (Y/N)? ";
 		choice = getchar();
@@ -220,7 +220,7 @@ private:
 
 public:
 	void run() {
-		Graphics::cls();
+		cls();
 
 		Bank branch;
 		string username;
@@ -261,6 +261,7 @@ public:
 			}
 
 			if (failAttempts == 3) {
+				branch.unlockATM(branch.currentUser.username, 1);
 				if (accountBlocked() == false) {
 					return;
 				}
@@ -268,3 +269,5 @@ public:
 		}
 	}
 };
+
+#endif

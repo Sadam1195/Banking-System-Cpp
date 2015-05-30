@@ -3,8 +3,12 @@
 
 #include <iostream>
 #include <string>     // to_string()
+#include <sstream>
+#include <iomanip>
 #include <ctime>      // time()
 #include <fstream>    // ofstream
+
+#include "Graphics.cpp"
 
 #pragma warning(disable : 4996)
 
@@ -22,7 +26,7 @@ struct userDetail {
 /*
 Use camelCase in naming functions
 */
-class Bank
+class Bank : public Graphics
 {
 public:
 	userDetail user;
@@ -35,7 +39,7 @@ public:
 
 	Bank()
 	{
-		srand(time(NULL));
+		srand((unsigned int)time(NULL));
 		strcpy_s(infoFile, "infoFile.txt");
 		strcpy_s(dataDir, "data/");
 		bool loggedIn = false;
@@ -45,7 +49,7 @@ public:
 	userDetail getRoleValue(string username) {
 		fstream infoFileReadStream(infoFile);
 		userDetail user;
-		int position = 0;
+		//int position = 0;
 		while (infoFileReadStream
 			>> user.username
 			>> user.password
@@ -57,7 +61,7 @@ public:
 			if (user.username == username) {
 				return user;
 			}
-			position = infoFileReadStream.tellg();
+			//position = infoFileReadStream.tellg();
 		}
 		return user;
 	}
@@ -66,7 +70,7 @@ public:
 
 		fstream infoFileReadStream(infoFile);
 		userDetail user;
-		int position = 0;
+		streamoff position = 0;
 		while (infoFileReadStream
 			>> user.username
 			>> user.password
@@ -76,7 +80,7 @@ public:
 			)
 		{
 			if (user.username == username) {
-				infoFileReadStream.seekp(position);
+				infoFileReadStream.seekp(static_cast<int>(position));
 				infoFileReadStream << data.username << " "
 					<< data.password << " "
 					<< data.pin << " "
@@ -90,22 +94,25 @@ public:
 		return 0;
 	}
 
-	void changePIN(string username, int pin){
+	bool changePIN(string username, int pin){
 		userDetail data = getRoleValue(username);
 		data.pin = pin;
 		putCurrentUserValue(username, data);
+		return true;
 	}
 
-	void changePassword(string username, string password){
+	bool changePassword(string username, string password){
 		userDetail data = getRoleValue(username);
 		data.password = password;
 		putCurrentUserValue(username, data);
+		return true;
 	}
 
-	void unlockATM(string username, bool unlock){
+	bool unlockATM(string username, bool unlock){
 		userDetail data = getRoleValue(username);
 		data.atmBlocked = unlock;
 		putCurrentUserValue(username, data);
+		return true;
 	}
 
 	void deleteUser(string username){
@@ -115,7 +122,7 @@ public:
 		data.password = "DEL_P";
 		data.pin = -1;
 		data.role = -1;
-		data.atmBlocked = -1;
+		data.atmBlocked = 0;
 		putCurrentUserValue(username, data);
 
 		string fileLoc = dataDir + username;
@@ -143,15 +150,13 @@ public:
 		string userFileLoc = string(dataDir) + username + ".txt";
 		fstream userFile(userFileLoc.c_str());
 		string tag, info;
-		int position = 0;
+		streamoff position = 0;
 		while (userFile >> tag >> info) {
-			//cout << tag << " " << info << " " << value << endl;
-
 			if (tag == key) {
-				cout << tag << " " << info << " " << value << endl;
-				userFile.seekp(position);
-				userFile << repeatCh(' ', info.size());
-				userFile.seekp(position);
+				userFile.seekp(static_cast<int>(position));
+				userFile << repeatCh(' ', info.size()+2); // Delete Previous Data
+				userFile.seekp(static_cast<int>(position));
+
 				userFile << endl << key << " " << value << endl;
 				break;
 			}
@@ -174,14 +179,15 @@ public:
 		return "NULL";
 	}
 
-	float getBalance(string username) {
+	double getBalance(string username) {
 		string key = "BAL";
 		string value = getValueByKey(username, key);
 		return atof(value.c_str());
 	}
 
-	bool addBalance(string username, int amount) {
-		string balance = to_string(getBalance(username) + amount);
+	bool addBalance(string username, double amount) {
+		double finalAmount = getBalance(username) + amount;
+		string balance = to_string_precision(finalAmount);
 		modifyKeyValue(username, "BAL", balance);
 		return true;
 	}
@@ -242,7 +248,7 @@ public:
 		return flag;
 	}
 
-	bool login(string username, string password, short int role) {
+	bool login(string username, string password, int role) {
 		string line;
 		bool flag = false;
 		userDetail userData;
@@ -255,7 +261,10 @@ public:
 			>> userData.atmBlocked
 			)
 		{
-			if (userData.username == username && userData.password == password) {
+			if (userData.username == username &&
+				userData.password == password &&
+				userData.role == role
+				) {
 				flag = true;
 				currentUser = userData; // Login user
 				currentUser.name = replaceWith(getValueByKey(username, "NAME"), '_', ' ');
@@ -279,7 +288,7 @@ public:
 			>> userData.atmBlocked
 			)
 		{
-			if (userData.username == username && userData.pin == atoi(pin.c_str())) {
+			if (userData.username == username && userData.pin == atoi(pin.c_str()) && userData.role == role) {
 				flag = true;
 				currentUser = userData; // Login user
 				currentUser.name = replaceWith(getValueByKey(username, "NAME"), '_', ' ');
@@ -290,7 +299,7 @@ public:
 		return flag;
 	}
 
-	int addUser(userDetail user) {
+	bool addUser(userDetail user) {
 		// Checking whether person with same username exist or not
 		// return false and cancel all operation
 		if (usernameAlreadyExist(user.username))
@@ -299,7 +308,7 @@ public:
 		}
 
 		// Adding data to file
-		infoFileWriteStream << user.username << " "
+		infoFileWriteStream << "\n" << user.username << " "
 			<< user.password << " "
 			<< user.pin << " "
 			<< user.role << " "
@@ -338,7 +347,7 @@ public:
 		currentUser.password = "";
 		currentUser.pin = -1;
 		currentUser.role = -1;
-		currentUser.atmBlocked = -1;
+		currentUser.atmBlocked = 0;
 		return true;
 	}
 
