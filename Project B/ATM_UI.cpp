@@ -179,7 +179,7 @@ private:
 		double balance = branch.getBalance(username);
 		if (deductBalance <= balance) {
 			branch.addBalance(username, -1.0 * balance);
-			coutV2("TRANSACTION COMPLETED!!!", PINK);
+			coutV2("TRANS COMPLETED!!!", PINK);
 
 		}
 		else
@@ -260,7 +260,7 @@ public:
 				}
 			}
 
-			if (failAttempts == 3) {
+			if (failAttempts >= 3) {
 				branch.unlockATM(branch.currentUser.username, 1);
 				if (accountBlocked() == false) {
 					return;

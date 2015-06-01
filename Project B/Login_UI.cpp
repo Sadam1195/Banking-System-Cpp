@@ -197,9 +197,9 @@ private:
 		goToXY(whereX(), whereY());
 		while (ch = _getch())
 		{
-			if (ch == 80)			throw 1;
-			else if (ch == 72)		throw 2;
-			else if (ch == 9)		throw 3;
+			if (ch == 80)			throw 1; // UP
+			else if (ch == 72)		throw 2; // DOWN
+			else if (ch == 9)		throw 3; // TAB
 			else if (ch == 13)  return text;
 			else {
 				if (ch != -32) {
