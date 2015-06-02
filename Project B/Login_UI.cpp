@@ -89,14 +89,24 @@ private:
 			POINT up = { 385, 258 },
 				down = { 446, 286 };
 
-			while (true) {
-			//while (GetAsyncKeyState(VK_RETURN) != 0) {
-				//if ((GetKeyState(VK_LBUTTON) & 0x80) != 0) {
+
+			// Mouse programming for only for specific resolution. (1280:800)
+			RECT rc;
+			GetWindowRect(GetDesktopWindow(), &rc);
+			
+			if (rc.right == 1280 && rc.bottom == 800) {
+				while (true) {
+					//while (GetAsyncKeyState(VK_RETURN) != 0) {
+					//if ((GetKeyState(VK_LBUTTON) & 0x80) != 0) {
 					if (positionClicked(up, down)) break;
 					Sleep(10);
-				//}
+					//}
+				}
 			}
-
+			else {
+				getche();
+			}
+			
 			if (LoggedUser.login(username, password, role))
 			{
 				return true;
