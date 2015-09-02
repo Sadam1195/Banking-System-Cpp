@@ -2,3 +2,6 @@
 *.mdf
 *.ldf
 *.opensdf
+*.suo
+*.sdf
+Debug/
