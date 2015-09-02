@@ -1,0 +1,24 @@
+﻿Build started 8/31/2015 8:40:37 AM.
+     1>Project "C:\Users\soac\Source\Repos\project-b\Project B\Project B.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /analyze- /errorReport:prompt ATM_UI.cpp Bank.cpp Graphics.cpp Login_UI.cpp Source.cpp
+         Source.cpp
+         Login_UI.cpp
+         Graphics.cpp
+         Bank.cpp
+         ATM_UI.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\soac\Source\Repos\project-b\Debug\Project B.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\soac\Source\Repos\project-b\Debug\Project B.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\soac\Source\Repos\project-b\Debug\Project B.lib" /MACHINE:X86 Debug\ATM_UI.obj
+         Debug\Bank.obj
+         Debug\Graphics.obj
+         Debug\Login_UI.obj
+         Debug\Source.obj
+         Project B.vcxproj -> C:\Users\soac\Source\Repos\project-b\Debug\Project B.exe
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o"C:\Users\soac\Source\Repos\project-b\Debug\Project B.bsc" /n Debug\ATM_UI.sbr Debug\Bank.sbr Debug\Graphics.sbr Debug\Login_UI.sbr Debug\Source.sbr
+     1>Done Building Project "C:\Users\soac\Source\Repos\project-b\Project B\Project B.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:30.88

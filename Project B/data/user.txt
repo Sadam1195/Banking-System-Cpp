@@ -1,3 +1,4 @@
 NAME Dummy_User
 CD Sun_Apr_26_21:01:34_2
-BAL 9999.00
+BAL 0.00
+0
