@@ -13,6 +13,10 @@ This is Zerk and Owais 2nd semester project.
 This program is compiled using Visual Studio 2013.
 
 
+## Team ##
+* Syed Owais Ali Chishti
+* Zerk Shaban
+
 ## Screenshots ##
 
 ![Bank](https://github.com/soachishti/project-b/raw/master/Screenshots/Bank001.png)
